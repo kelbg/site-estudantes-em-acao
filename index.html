@@ -144,6 +144,17 @@
 									cell: 'text-center px-1 py-1  border border-gray-300',
 									title: 'md:mx-4 bg-[#3F109B] text-indigo-100 rounded-sm text-center text-xs md:text-sm'
 								}
+							},
+							faqcard: {
+								base: 'mx-1 md:(mx-4) bg-indigo-200 mx',
+								content:{
+									button: {
+										base: 'w-full px-2 py-1 text-left text-indigo-600 hover:bg-indigo-300 transition-colors duration-200',
+										span: 'text-sm md:text-base',
+										icon: 'text-xl'
+									},
+									text: 'text-indigo-900 px-2 py-1'
+								}
 							}
 						}						
 					}
@@ -418,20 +429,31 @@
 							</span>
 						</button>
 						<div x-show="open" x-collapse.duration.200>
-							<div :class="styles.card.base" class="mx-1 md:(mx-4)">
-								<button @click="openFaq = !openFaq" class="w-full bg-indigo-300 px-2 py-1 text-left text-white hover:bg-indigo-400">
-									<span class="text-sm md:text-base">
-										<b>Quem poderá participar?</b>
-										<i class="float-right text-2xl bx bx-chevron-right transform transition-transform duration-200" :class="openFaq ? 'rotate-90' : ''"></i>
+							<div :class="[styles.card.base, styles.card.faqcard.base]">
+								<button @click="openFaq = !openFaq" :class="styles.card.faqcard.content.button.base">
+									<span :class="styles.card.faqcard.content.button.span">
+										<b>Pergunta #1</b>
+										<i :class="[styles.card.button.icon, styles.card.faqcard.content.button.icon, openFaq ? 'rotate-90' : '']"></i>
 									</span>
 								</button>
+								<div x-show="openFaq" x-collapse.duration.200 :class="styles.card.faqcard.content.base">
+									<p :class="styles.card.faqcard.content.text">Resposta #1</p>
+								</div>
 							</div>
-							<div x-show="openFaq" x-collapse.duration.200>
-								<p :class="styles.card.content.text">Poderão participar escolas públicas municipais, preferencialmente, que possuam Grêmios Estudantis</p>
+							<div :class="[styles.card.base, styles.card.faqcard.base]">
+								<button @click="openFaq = !openFaq" :class="styles.card.faqcard.content.button.base">
+									<span :class="styles.card.faqcard.content.button.span">
+										<b>Pergunta #2</b>
+										<i :class="[styles.card.button.icon, styles.card.faqcard.content.button.icon, openFaq ? 'rotate-90' : '']"></i>
+									</span>
+								</button>
+								<div x-show="openFaq" x-collapse.duration.200 :class="styles.card.faqcard.content.base">
+									<p :class="styles.card.faqcard.content.text">Resposta #2</p>
+								</div>
 							</div>
 						</div>
 					</div>
-		
+
 					<div id="contato" x-data="{ open: false }" @expand-all.window="open = true" @collapse-all.window="open = false" :class="styles.card.base">
 						<button @click="open = !open" :class="styles.card.button.base">
 							<span :class="styles.card.button.span">
