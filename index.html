@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>iframe Estudantes</title>
+	<title>Estudantes em Ação</title>
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 	<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" crossorigin="anonymous">
 
@@ -24,7 +24,8 @@
 		})
 	</script>
 
-	<!-- Script para scroll dos links de navegação -->
+<!-- Script para scroll dos links de navegação -->
+<!-- TODO: implementação não está funcionando quando carregado em um iframe -->
 	<script>
 	window.onload = function() {
 		const header = document.getElementById("navbar");
@@ -52,26 +53,28 @@
 	</script>
 
 	<!-- Script para atualizar a altura do iframe -->
+	<!-- Isso garante que o iframe se adapte ao conteúdo, sem barra de rolagem -->
 	<script>
-		function sendHeight() {
-			// Calcula a altura total do iframe e adiciona uma pequena margem
-			const contentHeight = document.getElementById("content").scrollHeight;
-			const navbarHeight = document.getElementById("navbar").scrollHeight;
-			const heightOffset = 50;
-			const height = contentHeight + navbarHeight + heightOffset;
+		window.onload = () => {			
+			const navbarOffset = document.getElementById("navbar").scrollHeight;
+			const footerOffset = 50;
+			
+			function sendHeight(contentHeight) {
+				let height = contentHeight + navbarOffset + footerOffset;
+	
+				window.parent.postMessage({ 
+					type: "setIframeHeight", 
+					iframeHeight: height
+				}, "*");
+			}
 
-			// Envia a altura do iframe para a página principal
-			window.parent.postMessage({ type: "setIframeHeight", iframeHeight: height }, "*");
+			const resizeObserver = new ResizeObserver(entries => {
+				let contentHeight = entries[0].contentRect.height;
+				sendHeight(contentHeight);
+			});
+
+			resizeObserver.observe(document.getElementById("content"));
 		}
-
-		// Adicionar um observador para monitorar as mudanças no conteúdo
-		window.addEventListener("load", sendHeight);
-		const observer = new MutationObserver(sendHeight);
-		observer.observe(document.documentElement, { 
-			childList: true,
-			subtree: true,
-			attributes: true
-		});
   	</script>
   
 </head>
@@ -165,7 +168,6 @@
 						<span class="px-3 py-2 bg-indigo-600 text-xs md:text-sm text-indigo-100 rounded-lg border-b-4 border-indigo-900 transition duration-200 hover:(bg-indigo-500 border-indigo-700)">
 							<button @click="allExpanded = !allExpanded; $dispatch(allExpanded ? 'expand-all' : 'collapse-all')" x-text="(allExpanded ? 'RECOLHER' : 'EXPANDIR') + ' TODOS'">[Expandir/Recolher]</button>
 							<i class="bx bx-chevron-right scale-150 transform transition-transform duration-200" :class="allExpanded ? 'rotate-90' : ''"></i>
-							<!-- <i :class="allExpanded ? 'bx bx-collapse' : 'bx bx-expand'"></i> -->
 						</span>
 					</span>
 
