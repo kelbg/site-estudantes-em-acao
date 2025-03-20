@@ -139,10 +139,11 @@
 							},
 							content: {
 								base: 'w-full whitespace-normal break-words p-1',
-								text: 'px-4 pb-3',
+								text: 'px-1 md:px-4 pb-3',
 								table: {
 									base: 'flex flex-wrap justify-center md:mx-4 mb-3',
 									header: 'text-xs md:(text-sm) text-center font-bold text-indigo-100 bg-[#4510a0]',
+									footer: 'text-xs md:(text-sm) text-center font-bold text-indigo-100 bg-[#6A20E9]',
 									row: 'text-xs md:(text-sm) bg-white',
 									cell: 'text-center px-1 py-1  border border-gray-300',
 									title: 'md:mx-4 bg-[#3F109B] text-indigo-100 rounded-sm text-center text-xs md:text-sm'
@@ -166,7 +167,7 @@
 					<!-- Botão de expandir e recolher os cards -->
 					<span class="flex flex-wrap mt-8 justify-right gap-x-2 mb-1">
 						<span class="px-3 py-2 bg-indigo-600 text-xs md:text-sm text-indigo-100 rounded-lg border-b-4 border-indigo-900 transition duration-200 hover:(bg-indigo-500 border-indigo-700)">
-							<button @click="allExpanded = !allExpanded; $dispatch(allExpanded ? 'expand-all' : 'collapse-all')" x-text="(allExpanded ? 'RECOLHER' : 'EXPANDIR') + ' TODOS'">[Expandir/Recolher]</button>
+							<button @click="allExpanded = !allExpanded; $dispatch(allExpanded ? 'expand-all' : 'collapse-all')" x-text="(allExpanded ? 'RECOLHER' : 'EXPANDIR') + ' TUDO'">[Expandir/Recolher]</button>
 							<i class="bx bx-chevron-right scale-150 transform transition-transform duration-200" :class="allExpanded ? 'rotate-90' : ''"></i>
 						</span>
 					</span>
@@ -182,7 +183,7 @@
 						<div x-show="open" x-collapse.duration.200 @expand-all.window="open = true" @collapse-all.window="open = false" :class="styles.card.content.base">
 							<p :class="styles.card.content.text">O Projeto Estudantes em Ação é uma iniciativa da <b>Controladoria Geral do Município (CGM-SP)</b>, em parceria com a <b>Secretaria Municipal de Educação (SME-SP)</b>, que tem como objetivo reconhecer e prestigiar ações transformadoras no contexto escolar. O Projeto, inspirado pelo trabalho realizado pela Controladoria Geral do Estado de Goiás (CGE-GO), promove a reflexão-ação sobre os mais diversos problemas enfrentados no ambiente da escola, e leva aos estudantes, professores e à toda a comunidade escolar a compreensão de temas como responsabilidade cidadã, participação social, direitos humanos, cultura da paz e coletividade.</p>
 							<p :class="styles.card.content.text">Durante o projeto, cada escola participante organiza um time de <b>40 a 60 estudantes</b> que terá a missão de realizar as atividades de cada etapa, sob a supervisão de <b>1 a 3 professores orientadores</b>.</p>
-							<p :class="styles.card.content.text">Ao final do projeto, são distribuídos mais de <b>R$ 140.000</b> em prêmios para as 10 escolas mais bem avaliadas e seus Grêmios Estudantis.</p>
+							<p :class="styles.card.content.text">Ao final do projeto, são distribuídos <b>mais de R$ 140.000</b> em prêmios para as 10 escolas mais bem avaliadas e seus Grêmios Estudantis.</p>
 						</div>
 					</div>
 		
@@ -195,16 +196,55 @@
 							</span>
 						</button>
 						<div x-show="open" x-collapse.duration.200 :class="styles.card.content.base">
+							<p :class="styles.card.content.text">
+								As seguintes atividades farão parte das etapas do Projeto Estudantes em Ação:
+							</p>
+
+							<table :class="styles.card.content.table.base">
+								<tr :class="styles.card.content.table.header">
+									<th :class="styles.card.content.table.cell">ETAPA</th>
+									<th :class="styles.card.content.table.cell">DESCRIÇÃO DAS ATIVIDADES</th>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="styles.card.content.table.cell"><b>Oficina para Professores Orientadores</b></td>
+									<td :class="[styles.card.content.table.cell, 'text-left']">
+										Atividade de instrução aos professores para compreensão das atividades.
+									</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="styles.card.content.table.cell"><b>Tarefa Especial</b></td>
+									<td :class="[styles.card.content.table.cell, 'text-left']">
+										Atividade de curta duração que instiga a pensar sobre o papel na sociedade. A Tarefa Especial abordará o tema <b>“Jogos de Azar: Riscos e Consequências”</b> e consistirá na participação em oficina expositiva e na elaboração de campanha no ambiente escolar.
+									</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="styles.card.content.table.cell"><b>Auditoria Cívica</b></td>
+									<td :class="[styles.card.content.table.cell, 'text-left']">
+										Atividade de percepção do ambiente e das ações da escola.
+									</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="styles.card.content.table.cell"><b>Desafio</b></td>
+									<td :class="[styles.card.content.table.cell, 'text-left']">
+										Identificação do problema através da Auditoria Cívica e discussão sobre como resolvê-lo. A execução dessa solução é o Desafio.
+									</td>
+								</tr>
+							</table>
+							
+							<p :class="styles.card.content.text">
+								Conforme especificado no edital, as etapas serão avaliadas conforme os seguintes critérios:
+							</p>
+
 							<table :class="styles.card.content.table.base">
 								<tr :class="styles.card.content.table.header">
 									<th :class="styles.card.content.table.cell">ETAPA</th>
 									<th :class="styles.card.content.table.cell">CRITÉRIO(S) DE AVALIAÇÃO</th>
-									<th :class="styles.card.content.table.cell">PONTUAÇÃO</th>
+									<th :class="styles.card.content.table.cell">PONTUAÇÃO MÁXIMA</th>
 								</tr>
 								<tr :class="styles.card.content.table.row">
 									<td :class="styles.card.content.table.cell"><b>Oficina para Professores Orientadores</b></td>
 									<td :class="[styles.card.content.table.cell, 'text-left']">- Presença de, pelo menos, um professor orientador na oficina expositiva sobre o tema <b>"Jogos de Azar: Riscos e Consequências"</td>
-									<td :class="styles.card.content.table.cell">0 ou 10</td>
+									<td :class="styles.card.content.table.cell">10 pontos</td>
 								</tr>
 								<tr :class="styles.card.content.table.row">
 									<td :class="styles.card.content.table.cell"><b>Tarefa Especial</b></td>
@@ -212,7 +252,7 @@
 										<p>- Entrega da atividade dentro do prazo</p>
 										<p>- Qualidade da(s) atividade(s) desenvolvida(s)</p>
 									</td>
-									<td :class="styles.card.content.table.cell">0 a 20</td>
+									<td :class="styles.card.content.table.cell">20 pontos</td>
 								</tr>
 								<tr :class="styles.card.content.table.row">
 									<td :class="styles.card.content.table.cell"><b>Auditoria Cívica</b></td>
@@ -221,7 +261,7 @@
 										<p>- Preenchimento dos 13 formulários de Auditoria Cívica</p>
 										<p></p>
 									</td>
-									<td :class="styles.card.content.table.cell">0 a 30</td>
+									<td :class="styles.card.content.table.cell">30 pontos</td>
 								</tr>
 								<tr :class="styles.card.content.table.row">
 									<td :class="styles.card.content.table.cell"><b>Desafio</b></td>
@@ -236,7 +276,48 @@
 										<p></p>
 										<p></p>
 									</td>
-									<td :class="styles.card.content.table.cell">0 a 40</td>
+									<td :class="styles.card.content.table.cell">40 pontos</td>
+							</table>
+						</div>
+					</div>
+		
+					<div id="cronograma" x-data="{ open: false }" @expand-all.window="open = true" @collapse-all.window="open = false" :class="styles.card.base">
+						<button @click="open = !open" :class="styles.card.button.base">
+							<span :class="styles.card.button.span">
+								<i class='bx bxs-calendar'></i>
+								<b>CRONOGRAMA</b>
+								<i :class="[styles.card.button.icon, open && 'rotate-90']"></i>
+							</span>
+						</button>
+						<div x-show="open" x-collapse.duration.200 :class="styles.card.content.base">
+							<p :class="styles.card.content.text">
+								As fases do projeto serão executadas conforme o cronograma previsto abaixo:
+							</p>
+
+							<table :class="styles.card.content.table.base">
+								<tr :class="styles.card.content.table.header">
+									<th :class="styles.card.content.table.cell">ATIVIDADE</th>
+									<th :class="styles.card.content.table.cell"><p>CRONOGRAMA PREVISTO</p></th>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="styles.card.content.table.cell"><b>Período de inscrições</b></td>
+									<td :class="styles.card.content.table.cell">09/06/2025 a 04/07/2025</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="styles.card.content.table.cell"><b>Oficina para Professores Orientadores</b></td>
+									<td :class="styles.card.content.table.cell">Agosto/2025<br>(data exata a ser definida)</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="styles.card.content.table.cell"><b>Tarefa Especial</b></td>
+									<td :class="styles.card.content.table.cell">25/08/2025 a 05/09/2025</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="styles.card.content.table.cell"><b>Auditoria Cívica</b></td>
+									<td :class="styles.card.content.table.cell">15/09/2025 a 26/09/2025</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="styles.card.content.table.cell"><b>Desafio</b></td>
+									<td :class="styles.card.content.table.cell">06/10/2025 a 07/11/2025</td>
 								</tr>
 							</table>
 						</div>
@@ -251,6 +332,10 @@
 							</span>
 						</button>
 						<div x-show="open" x-collapse.duration.200 :class="styles.card.content.base">
+							<p :class="styles.card.content.text">
+								Confira abaixo a premiação para as 10 escolas mais bem classificadas e seus Grêmios Estudantis:
+							</p>
+
 							<span class="flex flex-wrap justify-center gap-x-2">
 								<span>
 									<p :class="styles.card.content.table.title">PREMIAÇÃO DAS <b>ESCOLAS</b></p>
@@ -298,6 +383,10 @@
 										<tr :class="styles.card.content.table.row">
 											<td :class="styles.card.content.table.cell">10º</td>
 											<td :class="styles.card.content.table.cell">R$5.000,00</td>
+										</tr>
+										<tr :class="styles.card.content.table.footer">
+											<td :class="styles.card.content.table.cell">TOTAL</td>
+											<td :class="styles.card.content.table.cell">R$100.500,00</td>
 										</tr>
 									</table>
 								</span>
@@ -348,47 +437,13 @@
 											<td :class="styles.card.content.table.cell">10º</td>
 											<td :class="styles.card.content.table.cell">R$3.000,00</td>
 										</tr>
+										<tr :class="styles.card.content.table.footer">
+											<td :class="styles.card.content.table.cell">TOTAL</td>
+											<td :class="styles.card.content.table.cell">R$43.500,00</td>
+										</tr>
 									</table>
 								</span>
 							</span>
-						</div>
-					</div>
-		
-					<div id="cronograma" x-data="{ open: false }" @expand-all.window="open = true" @collapse-all.window="open = false" :class="styles.card.base">
-						<button @click="open = !open" :class="styles.card.button.base">
-							<span :class="styles.card.button.span">
-								<i class='bx bxs-calendar'></i>
-								<b>CRONOGRAMA</b>
-								<i :class="[styles.card.button.icon, open && 'rotate-90']"></i>
-							</span>
-						</button>
-						<div x-show="open" x-collapse.duration.200 :class="styles.card.content.base">
-							<table :class="styles.card.content.table.base">
-								<tr :class="styles.card.content.table.header">
-									<th :class="styles.card.content.table.cell">ATIVIDADE</th>
-									<th :class="styles.card.content.table.cell"><p>CRONOGRAMA PREVISTO</p></th>
-								</tr>
-								<tr :class="styles.card.content.table.row">
-									<td :class="styles.card.content.table.cell">Período de inscrições</td>
-									<td :class="styles.card.content.table.cell">09/06/2025 a 04/07/2025</td>
-								</tr>
-								<tr :class="styles.card.content.table.row">
-									<td :class="styles.card.content.table.cell">Oficina para Professores Orientadores</td>
-									<td :class="styles.card.content.table.cell">Agosto/2025</td>
-								</tr>
-								<tr :class="styles.card.content.table.row">
-									<td :class="styles.card.content.table.cell">Tarefa Especial</td>
-									<td :class="styles.card.content.table.cell">25/08/2025 a 05/09/2025</td>
-								</tr>
-								<tr :class="styles.card.content.table.row">
-									<td :class="styles.card.content.table.cell">Auditoria Cívica</td>
-									<td :class="styles.card.content.table.cell">15/09/2025 a 26/09/2025</td>
-								</tr>
-								<tr :class="styles.card.content.table.row">
-									<td :class="styles.card.content.table.cell">Desafio</td>
-									<td :class="styles.card.content.table.cell">06/10/2025 a 07/11/2025</td>
-								</tr>
-							</table>
 						</div>
 					</div>
 		
@@ -403,7 +458,7 @@
 						<div x-show="open" x-collapse.duration.200 :class="styles.card.content.base">
 							<!-- TODO: Inserir link da página quando estiver pronta -->
 							<p :class="styles.card.content.text">
-								<a href="https://capital.sp.gov.br/web/controladoria_geral/coord_de_defesa_do_usuario_do_servico_publico_municipal" target="_blank"><b><u>Clique aqui</u></b></a> para conferir as <b>edições anteriores</b> do projeto.
+								<a href="https://capital.sp.gov.br/web/controladoria_geral/w/projeto-estudantes-em-a%C3%A7%C3%A3o-vai-distribuir-mais-de-140-mil-reais-em-pr%C3%AAmios-para-escolas-municipais-e-gr%C3%AAmios-estudantis-de-s%C3%A3o-paulo" target="_blank"><b><u>Clique aqui</u></b></a> para conferir as <b>edições anteriores</b> do projeto.
 							</p>
 						</div>
 					</div>
@@ -422,7 +477,7 @@
 						</div>
 					</div>
 		
-					<div id="faq" x-data="{ open: true, allExpandedFaq: false }" @expand-all.window="open = true" @collapse-all.window="open = false" :class="styles.card.base">
+					<div id="faq" x-data="{ open: false, allExpandedFaq: false }" @expand-all.window="open = true" @collapse-all.window="open = false" :class="styles.card.base">
 						<button @click="open = !open" :class="styles.card.button.base">
 							<span :class="styles.card.button.span">
 								<i class='bx bxs-chat'></i>
@@ -434,30 +489,181 @@
 							<!-- Botão de expandir e recolher os cards do faq -->
 							<span class="flex flex-wrap my-1 py-1 px-1 md:px-4 justify-right gap-x-2 mb-1">
 								<span class="px-3 py-1 bg-indigo-600 text-xs md:text-sm text-indigo-100 rounded-lg border-b-4 border-indigo-900 transition duration-200 hover:(bg-indigo-500 border-indigo-700)">
-									<button @click="allExpandedFaq = !allExpandedFaq; $dispatch(allExpandedFaq ? 'expand-all-faq' : 'collapse-all-faq')" x-text="(allExpandedFaq ? 'RECOLHER' : 'EXPANDIR') + ' TODAS'">[Expandir/Recolher]</button>
+									<button @click="allExpandedFaq = !allExpandedFaq; $dispatch(allExpandedFaq ? 'expand-all-faq' : 'collapse-all-faq')" x-text="(allExpandedFaq ? 'RECOLHER' : 'EXPANDIR') + ' TUDO'">[Expandir/Recolher]</button>
 									<i class="bx bx-chevron-right scale-150 transform transition-transform duration-200" :class="allExpandedFaq ? 'rotate-90' : ''"></i>
 								</span>
 							</span>
 							<div x-data="{ openFaq: false }" @expand-all-faq.window="openFaq = true" @collapse-all-faq.window="openFaq = false" :class="[styles.card.base, styles.card.faqcard.base]">
 								<button @click="openFaq = !openFaq" :class="styles.card.faqcard.content.button.base">
 									<span :class="styles.card.faqcard.content.button.span">
-										<b>Pergunta #1</b>
+										<b>Quem poderá participar?</b>
 										<i :class="[styles.card.button.icon, styles.card.faqcard.content.button.icon, openFaq ? 'rotate-90' : '']"></i>
 									</span>
 								</button>
 								<div x-show="openFaq" x-collapse.duration.200 :class="styles.card.faqcard.content.base">
-									<p :class="styles.card.faqcard.content.text">Resposta #1</p>
+									<p :class="styles.card.faqcard.content.text">Poderão participar escolas públicas municipais, preferencialmente, que possuam Grêmios Estudantis.</p>
 								</div>
 							</div>
 							<div x-data="{ openFaq: false }" @expand-all-faq.window="openFaq = true" @collapse-all-faq.window="openFaq = false" :class="[styles.card.base, styles.card.faqcard.base]">
 								<button @click="openFaq = !openFaq" :class="styles.card.faqcard.content.button.base">
 									<span :class="styles.card.faqcard.content.button.span">
-										<b>Pergunta #2</b>
+										<b>Quantas escolas poderão participar?</b>
 										<i :class="[styles.card.button.icon, styles.card.faqcard.content.button.icon, openFaq ? 'rotate-90' : '']"></i>
 									</span>
 								</button>
 								<div x-show="openFaq" x-collapse.duration.200 :class="styles.card.faqcard.content.base">
-									<p :class="styles.card.faqcard.content.text">Resposta #2</p>
+									<p :class="styles.card.faqcard.content.text">Seguindo o critério de quantidade de escolas públicas municipais por Diretoria Regional de Educação – DRE, <u>as vagas serão limitadas a um total de <b>54 escolas</b></u>, distribuidas por DRE conforme tabela abaixo:</p>
+
+									<table :class="styles.card.content.table.base">
+										<tr :class="styles.card.content.table.header">
+											<th :class="styles.card.content.table.cell">DIRETORIA REGIONAL DE EDUCAÇÃO</th>
+											<th :class="styles.card.content.table.cell">VAGAS</th>
+										</tr>
+										<tr :class="styles.card.content.table.row">
+											<td :class="styles.card.content.table.cell">Butantã</td>
+											<td :class="styles.card.content.table.cell">3</td>
+										</tr>
+										<tr :class="styles.card.content.table.row">
+											<td :class="styles.card.content.table.cell">Campo Limpo</td>
+											<td :class="styles.card.content.table.cell">7</td>
+										</tr>
+										<tr :class="styles.card.content.table.row">
+											<td :class="styles.card.content.table.cell">Capela do Socorro</td>
+											<td :class="styles.card.content.table.cell">4</td>
+										</tr>
+										<tr :class="styles.card.content.table.row">
+											<td :class="styles.card.content.table.cell">Freguesia/Brasilândia</td>
+											<td :class="styles.card.content.table.cell">4</td>
+										</tr>
+										<tr :class="styles.card.content.table.row">
+											<td :class="styles.card.content.table.cell">Guaianases</td>
+											<td :class="styles.card.content.table.cell">3</td>
+										</tr>
+										<tr :class="styles.card.content.table.row">
+											<td :class="styles.card.content.table.cell">Ipiranga</td>
+											<td :class="styles.card.content.table.cell">3</td>
+										</tr>
+										<tr :class="styles.card.content.table.row">
+											<td :class="styles.card.content.table.cell">Itaquera</td>
+											<td :class="styles.card.content.table.cell">3</td>
+										</tr>
+										<tr :class="styles.card.content.table.row">
+											<td :class="styles.card.content.table.cell">Jaçanã/Tremembé</td>
+											<td :class="styles.card.content.table.cell">4</td>
+										</tr>
+										<tr :class="styles.card.content.table.row">
+											<td :class="styles.card.content.table.cell">Penha</td>
+											<td :class="styles.card.content.table.cell">4</td>
+										</tr>
+										<tr :class="styles.card.content.table.row">
+											<td :class="styles.card.content.table.cell">Pirituba/Jaraguá</td>
+											<td :class="styles.card.content.table.cell">6</td>
+										</tr>
+										<tr :class="styles.card.content.table.row">
+											<td :class="styles.card.content.table.cell">Santo Amaro</td>
+											<td :class="styles.card.content.table.cell">3</td>
+										</tr>
+										<tr :class="styles.card.content.table.row">
+											<td :class="styles.card.content.table.cell">São Mateus</td>
+											<td :class="styles.card.content.table.cell">5</td>
+										</tr>
+										<tr :class="styles.card.content.table.row">
+											<td :class="styles.card.content.table.cell">São Miguel</td>
+											<td :class="styles.card.content.table.cell">5</td>
+										</tr>
+										<tr :class="styles.card.content.table.footer">
+											<td :class="styles.card.content.table.cell">TOTAL</td>
+											<td :class="styles.card.content.table.cell">54</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+							<div x-data="{ openFaq: false }" @expand-all-faq.window="openFaq = true" @collapse-all-faq.window="openFaq = false" :class="[styles.card.base, styles.card.faqcard.base]">
+								<button @click="openFaq = !openFaq" :class="styles.card.faqcard.content.button.base">
+									<span :class="styles.card.faqcard.content.button.span">
+										<b>Quais serão os critérios de seleção das escolas?</b>
+										<i :class="[styles.card.button.icon, styles.card.faqcard.content.button.icon, openFaq ? 'rotate-90' : '']"></i>
+									</span>
+								</button>
+								<div x-show="openFaq" x-collapse.duration.200 :class="styles.card.faqcard.content.base">
+									<p :class="styles.card.faqcard.content.text">
+										A seleção das escolas para as vagas disponíveis seguirá os critérios elencados abaixo, conforme especificado no edital. Escolas localizadas nos territórios classificados como mais vulneráveis, de acordo com as definições estabelecidas pelo Índice Paulista de Vulnerabilidade Social (IPVS 2010) da Fundação Sistema Estadual de Análise de Dados – SEADE, receberão pontos extras.
+									</p>
+
+									<span class="flex flex-wrap justify-center gap-x-2">
+										<span class="max-w-sm">
+											<p :class="styles.card.content.table.title">CRITÉRIOS DE SELEÇÃO</p>
+											<table :class="styles.card.content.table.base">
+												<tr :class="styles.card.content.table.header">
+													<th :class="styles.card.content.table.cell">CRITÉRIO</th>
+													<th :class="styles.card.content.table.cell">PONTUAÇÃO</th>
+												</tr>
+												<tr :class="styles.card.content.table.row">
+													<td :class="styles.card.content.table.cell">Existência de Grêmio Estudantil</td>
+													<td :class="styles.card.content.table.cell">5</td>
+												</tr>
+												<tr :class="styles.card.content.table.row">
+													<td :class="styles.card.content.table.cell">Disponibilidade de, no mínimo, 40 estudantes para participação no Projeto</td>
+													<td :class="styles.card.content.table.cell">3</td>
+												</tr>
+												<tr :class="styles.card.content.table.row">
+													<td :class="styles.card.content.table.cell">Existência de Projeto de Educomunicação</td>
+													<td :class="styles.card.content.table.cell">2</td>
+												</tr>
+												<tr :class="styles.card.content.table.row">
+													<td :class="styles.card.content.table.footer">TOTAL</td>
+													<td :class="styles.card.content.table.footer">10</td>
+												</tr>
+											</table>
+										</span>
+										<span class="max-w-sm">
+											<p :class="styles.card.content.table.title">PONTUAÇÃO ADICIONAL</p>
+											<table :class="styles.card.content.table.base">
+												<tr :class="styles.card.content.table.header">
+													<th :class="styles.card.content.table.cell">GRUPO</th>
+													<th :class="styles.card.content.table.cell">PONTUAÇÃO EXTRA</th>
+												</tr>
+												<tr :class="styles.card.content.table.row">
+													<td :class="styles.card.content.table.cell">Grupo 6 – Vulnerabilidade Muito Alta</td>
+													<td :class="styles.card.content.table.cell">3</td>
+												</tr>
+												<tr :class="styles.card.content.table.row">
+													<td :class="styles.card.content.table.cell">Grupo 5 – Vulnerabilidade Alta</td>
+													<td :class="styles.card.content.table.cell">2</td>
+												</tr>
+												<tr :class="styles.card.content.table.row">
+													<td :class="styles.card.content.table.cell">Grupo 4 – Vulnerabilidade Média</td>
+													<td :class="styles.card.content.table.cell">1</td>
+											</table>
+										</span>
+									</span>
+									<p :class="styles.card.faqcard.content.text">
+										Como critério de desempate, será considerada a ordem de inscrição.
+									</p>
+								</div>
+							</div>
+							<div x-data="{ openFaq: false }" @expand-all-faq.window="openFaq = true" @collapse-all-faq.window="openFaq = false" :class="[styles.card.base, styles.card.faqcard.base]">
+								<button @click="openFaq = !openFaq" :class="styles.card.faqcard.content.button.base">
+									<span :class="styles.card.faqcard.content.button.span">
+										<b>Quais e como serão as atividades?</b>
+										<i :class="[styles.card.button.icon, styles.card.faqcard.content.button.icon, openFaq ? 'rotate-90' : '']"></i>
+									</span>
+								</button>
+								<div x-show="openFaq" x-collapse.duration.200 :class="styles.card.faqcard.content.base">
+									<p :class="styles.card.faqcard.content.text">
+										Veja a seção <i class="bx bxs-flag"></i> <b>Etapas</b> acima para conferir quais atividades serão desenvolvidas ao longo do projeto e como serão realizadas.
+									</p>
+								</div>
+							</div>
+							<div x-data="{ openFaq: false }" @expand-all-faq.window="openFaq = true" @collapse-all-faq.window="openFaq = false" :class="[styles.card.base, styles.card.faqcard.base]">
+								<button @click="openFaq = !openFaq" :class="styles.card.faqcard.content.button.base">
+									<span :class="styles.card.faqcard.content.button.span">
+										<b>Como se dará a pontuação das atividades</b>
+										<i :class="[styles.card.button.icon, styles.card.faqcard.content.button.icon, openFaq ? 'rotate-90' : '']"></i>
+									</span>
+								</button>
+								<div x-show="openFaq" x-collapse.duration.200 :class="styles.card.faqcard.content.base">
+									<p :class="styles.card.faqcard.content.text">Os critérios de avaliação e as pontuações máximas definidas no edital para cada etapa podem ser conferidos na seção <i class="bx bxs-flag"></i> <b>Etapas</b> acima.</p>
 								</div>
 							</div>
 						</div>
