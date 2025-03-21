@@ -1,5 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  
+	x-data="{ 
+		darkMode: localStorage.getItem('color-theme') === 'dark' || 
+				(localStorage.getItem('color-theme') === null && window.matchMedia('(prefers-color-scheme: dark)').matches)
+	}"
+	x-bind:class="{ 'dark': darkMode }"
+	x-init="$watch('darkMode', val => localStorage.setItem('color-theme', val ? 'dark' : 'light'))">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,6 +20,7 @@
 	<script>
 		twind.install({
 			hash: false,
+			darkMode: 'class',
 			theme: {
 				extend: {
 				  fontFamily: {
@@ -74,9 +81,9 @@
   	</script>
   
 </head>
-<body class="overflow-scroll bg-[#261449] m-0 flex flex-col min-h-screen">
+<body class="overflow-scroll m-0 flex flex-col min-h-screen border rounded border-indigo-100 bg-[#ffffff] dark:bg-[#261449] transition-colors duration-300">
 	<div class="flex-1 relative">
-		<div class="absolute inset-0 bg-[url(https://capital.sp.gov.br/documents/10957549/22540216/desenhos_fundo_pequeno.png)] bg-repeat bg-[length:500px] opacity-50 z-[-1]">
+		<div class="absolute inset-0 bg-repeat bg-[length:500px] opacity-75 z-[-1] bg-[url(assets/images/desenhos_fundo_pequeno_claro.png)] dark:(bg-[url(assets/images/desenhos_fundo_pequeno.png)] opacity-50)">
 		</div>
 
 		<nav id="navbar" class="px-4 bg-gradient-to-b from-[#261449] sticky top-0 z-50" x-data="{
@@ -86,12 +93,16 @@
 		}">
 			<div class="flex justify-between items-center h-10 md:(h-16)">
 				<!-- Logo - leva para a home -->
-				<a href="#home" target="_self" class="navlink flex items-center -ml-2 opacity-80 hover:opacity-100">
-					<img src="https://capital.sp.gov.br/documents/10957549/22540216/logo_estudantes_pequeno.png" alt="Logo do Projeto Estudantes em Ação" class="h-12 w-auto min-w-[96px] md:(h-20)">
+				<a href="#home" target="_self" class="flex items-center -ml-2 opacity-80 hover:opacity-100">
+					<img src="assets/images/logo_estudantes_pequeno.png" alt="Logo do Projeto Estudantes em Ação" class="h-12 w-auto min-w-[96px] md:(h-20)">
 				</a>
 			
 				<!-- Links de navegação -->
 				<div class="flex space-x-3">
+					<button @click="darkMode = !darkMode" :class="styles.navlink" title="Alterna entre modo claro e escuro">
+						<i class="bx bxs-moon" x-show="!darkMode"></i>
+						<i class="bx bxs-sun" x-show="darkMode"></i>
+					</button>
 					<a href="#sobre" target="_self" :class="styles.navlink"><b>SOBRE</b></a>
 					<a href="#faq" target="_self" :class="styles.navlink"><b>FAQ</b></a>
 					<a href="#contato" target="_self" :class="styles.navlink"><b>CONTATO</b></a>
@@ -103,12 +114,12 @@
 			<!-- Seção Principal - avisos e links -->
 			<div id="home" class="w-full max-w-4xl p-2 md:(p-4) items-center font-montserrat" id="home">
 				<!-- Carrossel -->
-				<div class="mb-4 p-3 rounded-md bg-indigo-100 text-indigo-900 border-l-4 border-indigo-600 text-white (text-sm) md:(text-base) bg-opacity-50">
+				<div class="mb-4 p-3 rounded-md bg-indigo-100 text-indigo-900 dark:text-white border-l-4 border-indigo-600 (text-sm) md:(text-base) bg-opacity-50 transition-colors duration-300">
 					<p class="text-center"><i class='bx bx-images'></i> [<b>PLACEHOLDER:</b> Aqui vão os ícones dos estudantes e uma mensagem sobre a 3ª edição.</p>
 				</div>
 
 				<!-- Seção de Avisos -->
-				<div class="mb-8 p-3 rounded-md bg-indigo-100 text-indigo-900 border-l-4 border-indigo-600 text-white (text-sm) md:(text-base) bg-opacity-50">
+				<div class="mb-4 p-3 rounded-md bg-indigo-100 text-indigo-900 dark:text-white border-l-4 border-indigo-600 (text-sm) md:(text-base) bg-opacity-50 transition-colors duration-300">
 					<p class="text-center"><i class='bx bxs-news'></i> [<b>PLACEHOLDER:</b> Aqui vai a seção de avisos e informações importantes.</p>
 				</div>
 	
