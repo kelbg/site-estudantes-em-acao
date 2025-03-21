@@ -24,41 +24,13 @@
 		})
 	</script>
 
-<!-- Script para scroll dos links de navegação -->
-<!-- TODO: implementação não está funcionando quando carregado em um iframe -->
-	<script>
-	window.onload = function() {
-		const header = document.getElementById("navbar");
-		// Offset para a barra de navegação durante o scroll
-		const headerOffset = header ? header.offsetHeight + 10 : 70;
-
-		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-			anchor.addEventListener('click', function(e) {
-				e.preventDefault();
-				const target = document.querySelector(this.getAttribute('href'));
-
-				if (!target)
-					return
-
-				const elementPosition = target.getBoundingClientRect().top;
-				const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-				window.scrollTo({
-					top: offsetPosition,
-					behavior: 'smooth'
-				});
-			});
-		});
-	}
-	</script>
-
-	<!-- Script para atualizar a altura do iframe -->
-	<!-- Isso garante que o iframe se adapte ao conteúdo, sem barra de rolagem -->
 	<script>
 		window.onload = () => {			
 			const navbarOffset = document.getElementById("navbar").scrollHeight;
 			const footerOffset = 50;
 			
+			// Envia a altura do conteúdo para a página principal
+			// Isso permite que a página principal se adapte ao conteúdo do iframe
 			function sendHeight(contentHeight) {
 				let height = contentHeight + navbarOffset + footerOffset;
 	
@@ -68,12 +40,36 @@
 				}, "*");
 			}
 
+			// Configura o scroll para os links de navegação
+			function setupScrollListener() {
+				document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+					anchor.addEventListener('click', function(e) {
+						e.preventDefault(); // Previne que o link seja aberto
+						const targetElement = document.querySelector(this.getAttribute('href'));
+						
+						if (targetElement) {
+							// Abre o card selecionado
+							Alpine.$data(targetElement).open = true;
+							
+							// Inicia o scroll para o card enquanto ele abre
+							targetElement.scrollIntoView({ behavior: "smooth" });
+
+							// Espera o tempo da animação de abertura do card e finaliza o scroll
+							setTimeout(() => {
+								targetElement.scrollIntoView({ behavior: "smooth" });
+							}, 200);
+						}
+					});
+				});
+			}
+
 			const resizeObserver = new ResizeObserver(entries => {
 				let contentHeight = entries[0].contentRect.height;
 				sendHeight(contentHeight);
 			});
 
 			resizeObserver.observe(document.getElementById("content"));
+			setupScrollListener();
 		}
   	</script>
   
@@ -172,7 +168,7 @@
 						</span>
 					</span>
 
-					<div id="sobre" x-data="{ open: false }" :class="styles.card.base" style="scroll-margin-top: 80px !important;">
+					<div id="sobre" x-data="{ open: true }" :class="styles.card.base" style="scroll-margin-top: 80px !important;">
 						<button @click="open = !open" :class="styles.card.button.base">
 							<span :class="styles.card.button.span">
 								<i class='bx bxs-info-circle'></i>
@@ -456,7 +452,6 @@
 							</span>
 						</button>
 						<div x-show="open" x-collapse.duration.200 :class="styles.card.content.base">
-							<!-- TODO: Inserir link da página quando estiver pronta -->
 							<p :class="styles.card.content.text">
 								<a href="https://capital.sp.gov.br/web/controladoria_geral/w/projeto-estudantes-em-a%C3%A7%C3%A3o-vai-distribuir-mais-de-140-mil-reais-em-pr%C3%AAmios-para-escolas-municipais-e-gr%C3%AAmios-estudantis-de-s%C3%A3o-paulo" target="_blank"><b><u>Clique aqui</u></b></a> para conferir as <b>edições anteriores</b> do projeto.
 							</p>
@@ -587,7 +582,7 @@
 								</button>
 								<div x-show="openFaq" x-collapse.duration.200 :class="styles.card.faqcard.content.base">
 									<p :class="styles.card.faqcard.content.text">
-										A seleção das escolas para as vagas disponíveis seguirá os critérios elencados abaixo, conforme especificado no edital. Escolas localizadas nos territórios classificados como mais vulneráveis, de acordo com as definições estabelecidas pelo Índice Paulista de Vulnerabilidade Social (IPVS 2010) da Fundação Sistema Estadual de Análise de Dados – SEADE, receberão pontos extras.
+										A seleção das escolas para as vagas disponíveis seguirá os critérios elencados abaixo. Escolas localizadas nos territórios classificados como mais vulneráveis, de acordo com as definições estabelecidas pelo Índice Paulista de Vulnerabilidade Social (IPVS 2010) da Fundação Sistema Estadual de Análise de Dados – SEADE, receberão pontos extras.
 									</p>
 
 									<span class="flex flex-wrap justify-center gap-x-2">
@@ -651,7 +646,7 @@
 								</button>
 								<div x-show="openFaq" x-collapse.duration.200 :class="styles.card.faqcard.content.base">
 									<p :class="styles.card.faqcard.content.text">
-										Veja a seção <i class="bx bxs-flag"></i> <b>Etapas</b> acima para conferir quais atividades serão desenvolvidas ao longo do projeto e como serão realizadas.
+										Veja a seção <a href="#etapas"><i class="bx bxs-flag"></i> <b><u>Etapas</u></b></a> acima para saber mais sobre quais atividades serão desenvolvidas ao longo do projeto e como serão realizadas.
 									</p>
 								</div>
 							</div>
@@ -663,7 +658,7 @@
 									</span>
 								</button>
 								<div x-show="openFaq" x-collapse.duration.200 :class="styles.card.faqcard.content.base">
-									<p :class="styles.card.faqcard.content.text">Os critérios de avaliação e as pontuações máximas definidas no edital para cada etapa podem ser conferidos na seção <i class="bx bxs-flag"></i> <b>Etapas</b> acima.</p>
+									<p :class="styles.card.faqcard.content.text">Os critérios de avaliação e as pontuações máximas definidas no edital para cada etapa podem ser conferidos na seção <a href="#etapas"><i class="bx bxs-flag"></i> <b><u>Etapas</u></b></a> acima.</p>
 								</div>
 							</div>
 						</div>

@@ -3,35 +3,34 @@
 
 <head>
 	<meta charset='utf-8'>
-	<title>Página Estudantes</title>
+	<title>Projeto Estudantes em Ação</title>
 </head>
+
 <body>
 	<div style="position: relative; padding-bottom: 100%; padding-top: 25px; height: 0;">
-		<!-- local src="/index.html" -->
-		<!-- remote src="https://kelbg.github.io/site-estudantes-em-acao/" -->
-		<iframe src="https://kelbg.github.io/site-estudantes-em-acao/" title="iframe-estudantes" id="iframe-estudantes" frameborder="0" scrolling="no" style="position: absolute; top: 0; left: 0; width: 100%; height: 1050px; will-change: height"></iframe>
+		<iframe src="https://kelbg.github.io/site-estudantes-em-acao/" title="iframe-estudantes" id="iframe-estudantes" frameborder="0" scrolling="no"
+			style="position: absolute; top: 0; left: 0; width: 100%; height: 1050px; will-change: height"></iframe>
 	</div>
 	<script>
-		window.addEventListener('message', function(event) {
-		const iframe = document.getElementById('iframe-estudantes');
-	
-		// Verifica a origem da mensagem
-		// const expectedOrigin = window.location.origin;
-		const expectedOrigin = 'https://kelbg.github.io';
-		const isValidSource = event.source === iframe.contentWindow;
-		const isValidOrigin = event.origin === expectedOrigin || event.origin === 'null';
+		window.addEventListener('message', function (event) {
+			const iframe = document.getElementById('iframe-estudantes');
 
-		if (!isValidSource || !isValidOrigin) {
-			console.warn(`Fonte/origem inválida: ${event.source}/${event.origin}`)
-			return;
-		}
+			// Verifica a origem da mensagem
+			const expectedOrigin = 'https://kelbg.github.io';
+			const isValidSource = event.source === iframe.contentWindow;
+			const isValidOrigin = event.origin === expectedOrigin || event.origin === 'null';
 
-		if (event.data?.type === 'setIframeHeight') {
-			iframe.style.height = `${event.data.iframeHeight}px`;
-			iframe.parentElement.style.height = `${event.data.iframeHeight}px`;
-		}
-	
-	}, false);
+			if (!isValidSource || !isValidOrigin) {
+				console.warn(`Fonte/origem inválida: ${event.source}/${event.origin}`)
+				return;
+			}
+
+			if (event.data?.type === 'setIframeHeight') {
+				iframe.style.height = `${event.data.iframeHeight}px`;
+				iframe.parentElement.style.height = `${event.data.iframeHeight}px`;
+			}
+		}, false);
 	</script>
 </body>
+
 </html>
