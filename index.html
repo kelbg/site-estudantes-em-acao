@@ -9,6 +9,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Estudantes em Ação</title>
+	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 	<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" crossorigin="anonymous">
 
@@ -46,6 +47,18 @@
 	</script>
 
 	<script>
+		// Função para rolar e abrir o card
+		function scrollToCard(cardId) {
+			// Abre o card selecionado
+			const card = document.getElementById(cardId);
+			Alpine.$data(card).open = true;
+						
+			card.scrollIntoView({ behavior: "smooth" });
+			setTimeout(() => {
+				card.scrollIntoView({ behavior: "smooth" });
+			}, 200);
+		}
+
 		window.onload = () => {
 			const navbarOffset = document.getElementById("navbar").scrollHeight;
 			const footerOffset = 50;
@@ -61,36 +74,12 @@
 				}, "*");
 			}
 
-			// Configura o scroll para os links de navegação
-			function setupScrollListener() {
-				document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-					anchor.addEventListener('click', function (e) {
-						e.preventDefault(); // Previne que o link seja aberto
-						const targetElement = document.querySelector(this.getAttribute('href'));
-
-						if (targetElement) {
-							// Abre o card selecionado
-							Alpine.$data(targetElement).open = true;
-
-							// Inicia o scroll para o card enquanto ele abre
-							targetElement.scrollIntoView({ behavior: "smooth" });
-
-							// Espera o tempo da animação de abertura do card e finaliza o scroll
-							setTimeout(() => {
-								targetElement.scrollIntoView({ behavior: "smooth" });
-							}, 200);
-						}
-					});
-				});
-			}
-
 			const resizeObserver = new ResizeObserver(entries => {
 				let contentHeight = entries[0].contentRect.height;
 				sendHeight(contentHeight);
 			});
 
 			resizeObserver.observe(document.getElementById("content"));
-			setupScrollListener();
 		}
 	</script>
 
@@ -110,10 +99,9 @@
 		}">
 			<div class="flex justify-between items-center h-10 md:(h-16)">
 				<!-- Logo - leva para a home -->
-				<a href="#home" target="_self" class="flex items-center -ml-2 opacity-80 hover:opacity-100">
-					<img src="assets/images/logo_estudantes_pequeno.png" alt="Logo do Projeto Estudantes em Ação"
-						class="h-12 w-auto min-w-[96px] md:(h-20)">
-				</a>
+				<button onclick="scrollToCard('home')" :class="styles.navlink" class="flex items-center -ml-2 opacity-80 hover:opacity-100">
+					<img src="assets/images/logo_estudantes_pequeno.png" alt="Logo do Projeto Estudantes em Ação" class="h-12 w-auto min-w-[96px] md:(h-20)">
+				</button>
 
 				<!-- Links de navegação -->
 				<div class="flex space-x-3">
@@ -122,9 +110,9 @@
 						<i class="bx bxs-moon" x-show="!darkMode"></i>
 						<i class="bx bxs-sun" x-show="darkMode"></i>
 					</button>
-					<a href="#sobre" target="_self" :class="styles.navlink"><b>SOBRE</b></a>
-					<a href="#faq" target="_self" :class="styles.navlink"><b>FAQ</b></a>
-					<a href="#contato" target="_self" :class="styles.navlink"><b>CONTATO</b></a>
+					<button onclick="scrollToCard('sobre')" :class="styles.navlink"><b>SOBRE</b></button>
+					<button onclick="scrollToCard('faq')" :class="styles.navlink"><b>FAQ</b></button>
+					<button onclick="scrollToCard('contato')" :class="styles.navlink"><b>CONTATO</b></button>
 				</div>
 			</div>
 		</nav>
@@ -133,7 +121,7 @@
 			<!-- Seção Principal - avisos e links -->
 			<div id="home" class="w-full max-w-4xl p-2 md:(p-4) items-center font-montserrat" id="home">
 				<!-- Carrossel -->
-				<div class="scale-[1.0]">
+				<div id="carrossel" class="w-full -mx-2">
 					<div
 						class="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_64px,_black_calc(100%-64px),transparent_100%)]">
 						<ul
@@ -335,6 +323,7 @@
 								<tr :class="styles.card.content.table.row">
 									<td :class="styles.card.content.table.cell"><b>Tarefa Especial</b></td>
 									<td :class="[styles.card.content.table.cell, 'text-left']">
+										<p>- Presença de, pelo menos, um professor orientador na oficina expositiva sobre o tema <b>"Jogos de Azar: Riscos e Consequências"</b>;</p>
 										<p>- Entrega da atividade dentro do prazo;</p>
 										<p>- Qualidade da(s) atividade(s) desenvolvida(s).</p>
 									</td>
@@ -343,7 +332,6 @@
 								<tr :class="styles.card.content.table.row">
 									<td :class="styles.card.content.table.cell"><b>Auditoria Cívica</b></td>
 									<td :class="[styles.card.content.table.cell, 'text-left']">
-										<p>- Presença de, pelo menos, um professor orientador na oficina expositiva sobre o tema <b>"Jogos de Azar: Riscos e Consequências"</b>;</p>
 										<p>- Entrega da atividade dentro do prazo;</p>
 										<p>- Preenchimento dos 14 formulários de Auditoria Cívica.</p>
 										<p></p>
