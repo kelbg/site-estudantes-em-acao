@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="en"  
-	x-data="{ 
+<html lang="en" x-data="{ 
 		darkMode: localStorage.getItem('color-theme') === 'dark' || 
 				(localStorage.getItem('color-theme') === null && window.matchMedia('(prefers-color-scheme: dark)').matches)
-	}"
-	x-bind:class="{ 'dark': darkMode }"
+	}" x-bind:class="{ 'dark': darkMode }"
 	x-init="$watch('darkMode', val => localStorage.setItem('color-theme', val ? 'dark' : 'light'))">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +12,8 @@
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 	<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" crossorigin="anonymous">
 
-	<script src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.14.8/dist/cdn.min.js" defer crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.14.8/dist/cdn.min.js" defer
+		crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js" defer crossorigin="anonymous"></script>
 
 	<script src="https://cdn.twind.style" crossorigin="anonymous"></script>
@@ -23,26 +23,40 @@
 			darkMode: 'class',
 			theme: {
 				extend: {
-				  fontFamily: {
-					montserrat: ['Montserrat', 'sans-serif']
-				  }
+					fontFamily: {
+						montserrat: ['Montserrat', 'sans-serif']
+					},
+					animation: {
+						"infinite-scroll": "infinite-scroll 20s linear infinite",
+						// "wiggle": "wiggle 2s ease-in-out infinite"
+					},
+					keyframes: {
+						"infinite-scroll": {
+							from: { transform: "translateX(0)" },
+							to: { transform: "translateX(-100%)" }
+						},
+						"wiggle": {
+							"0%, 100%": { transform: "rotate(-3deg)" },
+							"50%": { transform: "rotate(3deg)" }
+						}
+					}
 				}
 			}
 		})
 	</script>
 
 	<script>
-		window.onload = () => {			
+		window.onload = () => {
 			const navbarOffset = document.getElementById("navbar").scrollHeight;
 			const footerOffset = 50;
-			
+
 			// Envia a altura do conteúdo para a página principal
 			// Isso permite que a página principal se adapte ao conteúdo do iframe
 			function sendHeight(contentHeight) {
 				let height = contentHeight + navbarOffset + footerOffset;
-	
-				window.parent.postMessage({ 
-					type: "setIframeHeight", 
+
+				window.parent.postMessage({
+					type: "setIframeHeight",
 					iframeHeight: height
 				}, "*");
 			}
@@ -50,14 +64,14 @@
 			// Configura o scroll para os links de navegação
 			function setupScrollListener() {
 				document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-					anchor.addEventListener('click', function(e) {
+					anchor.addEventListener('click', function (e) {
 						e.preventDefault(); // Previne que o link seja aberto
 						const targetElement = document.querySelector(this.getAttribute('href'));
-						
+
 						if (targetElement) {
 							// Abre o card selecionado
 							Alpine.$data(targetElement).open = true;
-							
+
 							// Inicia o scroll para o card enquanto ele abre
 							targetElement.scrollIntoView({ behavior: "smooth" });
 
@@ -78,28 +92,33 @@
 			resizeObserver.observe(document.getElementById("content"));
 			setupScrollListener();
 		}
-  	</script>
-  
+	</script>
+
 </head>
-<body class="overflow-scroll m-0 flex flex-col min-h-screen border rounded border-indigo-100 bg-[#ffffff] dark:bg-[#261449] transition-colors duration-300">
+
+<body
+	class="overflow-scroll m-0 flex flex-col min-h-screen border rounded border-indigo-100 bg-[#ffffff] dark:bg-[#261449] transition-colors duration-300">
 	<div class="flex-1 relative">
-		<div class="absolute inset-0 bg-repeat bg-[length:500px] opacity-75 z-[-1] bg-[url(assets/images/desenhos_fundo_pequeno_claro.png)] dark:(bg-[url(assets/images/desenhos_fundo_pequeno.png)] opacity-50)">
+		<div
+			class="absolute inset-0 bg-repeat bg-[length:500px] opacity-75 z-[-1] bg-[url(assets/images/desenhos_fundo_pequeno_claro.png)] dark:(bg-[url(assets/images/desenhos_fundo_pequeno.png)] opacity-50)">
 		</div>
 
 		<nav id="navbar" class="px-4 bg-gradient-to-b from-[#261449] sticky top-0 z-50" x-data="{
 			styles: {
-				navlink: 'text-white font-montserrat text-sm md:(text-lg) text-opacity-75 hover:text-opacity-100'
+				navlink: 'text-white font-montserrat text-xs md:(text-lg) text-opacity-75 hover:text-opacity-100'
 			}
 		}">
 			<div class="flex justify-between items-center h-10 md:(h-16)">
 				<!-- Logo - leva para a home -->
 				<a href="#home" target="_self" class="flex items-center -ml-2 opacity-80 hover:opacity-100">
-					<img src="assets/images/logo_estudantes_pequeno.png" alt="Logo do Projeto Estudantes em Ação" class="h-12 w-auto min-w-[96px] md:(h-20)">
+					<img src="assets/images/logo_estudantes_pequeno.png" alt="Logo do Projeto Estudantes em Ação"
+						class="h-12 w-auto min-w-[96px] md:(h-20)">
 				</a>
-			
+
 				<!-- Links de navegação -->
 				<div class="flex space-x-3">
-					<button @click="darkMode = !darkMode" :class="styles.navlink" title="Alterna entre modo claro e escuro">
+					<button @click="darkMode = !darkMode" :class="styles.navlink"
+						title="Alterna entre modo claro e escuro">
 						<i class="bx bxs-moon" x-show="!darkMode"></i>
 						<i class="bx bxs-sun" x-show="darkMode"></i>
 					</button>
@@ -109,26 +128,75 @@
 				</div>
 			</div>
 		</nav>
-		
+
 		<div class="flex flex-row mb-4 justify-center items-center" id="content">
 			<!-- Seção Principal - avisos e links -->
 			<div id="home" class="w-full max-w-4xl p-2 md:(p-4) items-center font-montserrat" id="home">
 				<!-- Carrossel -->
-				<div class="mb-4 p-3 rounded-md bg-indigo-100 text-indigo-900 dark:text-white border-l-4 border-indigo-600 (text-sm) md:(text-base) bg-opacity-50 transition-colors duration-300">
-					<p class="text-center"><i class='bx bx-images'></i> [<b>PLACEHOLDER:</b> Aqui vão os ícones dos estudantes e uma mensagem sobre a 3ª edição.</p>
+				<div class="scale-[1.0]">
+					<div
+						class="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_64px,_black_calc(100%-64px),transparent_100%)]">
+						<ul
+							x-ref="icones"
+							class="flex items-center justify-center md:justify-start [&_li]:mx-4 [&_img]:(max-w-none) animate-infinite-scroll">
+							<li>
+								<img src="assets/images/redes_sociais estudantes_1_peq.png" alt="Ícone Estudante 1" class="animate-[wiggle_2.2s_ease-in-out_infinite]">
+							</li>
+							<li>
+								<img src="assets/images/redes_sociais estudantes_2_peq.png" alt="Ícone Estudante 2" class="animate-[wiggle_2.8s_ease-in-out_infinite]">
+							</li>
+							<li>
+								<img src="assets/images/redes_sociais estudantes_3_peq.png" alt="Ícone Estudante 3" class="animate-[wiggle_2.3s_ease-in-out_infinite]">
+							</li>
+							<li>
+								<img src="assets/images/redes_sociais estudantes_4_peq.png" alt="Ícone Estudante 4" class="animate-[wiggle_2.7s_ease-in-out_infinite]">
+							</li>
+							<li>
+								<img src="assets/images/redes_sociais estudantes_5_peq.png" alt="Ícone Estudante 5" class="animate-[wiggle_2.4s_ease-in-out_infinite]">
+							</li>
+							<li>
+								<img src="assets/images/redes_sociais estudantes_6_peq.png" alt="Ícone Estudante 6" class="animate-[wiggle_2.6s_ease-in-out_infinite]">
+							</li>
+						</ul>
+						<ul
+							class="flex items-center justify-center md:justify-start [&_li]:mx-4 [&_img]:(max-w-none) animate-infinite-scroll">
+							<li>
+								<img src="assets/images/redes_sociais estudantes_1_peq.png" alt="Ícone Estudante 1" class="animate-[wiggle_2.2s_ease-in-out_infinite]">
+							</li>
+							<li>
+								<img src="assets/images/redes_sociais estudantes_2_peq.png" alt="Ícone Estudante 2" class="animate-[wiggle_2.8s_ease-in-out_infinite]">
+							</li>
+							<li>
+								<img src="assets/images/redes_sociais estudantes_3_peq.png" alt="Ícone Estudante 3" class="animate-[wiggle_2.3s_ease-in-out_infinite]">
+							</li>
+							<li>
+								<img src="assets/images/redes_sociais estudantes_4_peq.png" alt="Ícone Estudante 4" class="animate-[wiggle_2.7s_ease-in-out_infinite]">
+							</li>
+							<li>
+								<img src="assets/images/redes_sociais estudantes_5_peq.png" alt="Ícone Estudante 5" class="animate-[wiggle_2.4s_ease-in-out_infinite]">
+							</li>
+							<li>
+								<img src="assets/images/redes_sociais estudantes_6_peq.png" alt="Ícone Estudante 6" class="animate-[wiggle_2.6s_ease-in-out_infinite]">
+							</li>
+						</ul>
+					</div>
 				</div>
 
 				<!-- Seção de Avisos -->
-				<div class="mb-4 p-3 rounded-md bg-indigo-100 text-indigo-900 dark:text-white border-l-4 border-indigo-600 (text-sm) md:(text-base) bg-opacity-50 transition-colors duration-300">
-					<p class="text-center"><i class='bx bxs-news'></i> [<b>PLACEHOLDER:</b> Aqui vai a seção de avisos e informações importantes.</p>
+				<div
+					class="mb-4 p-3 rounded-md bg-indigo-100 text-indigo-900 dark:text-white border-l-4 border-indigo-600 (text-sm) md:(text-base) bg-opacity-50 transition-colors duration-300">
+					<p class="text-center"><i class='bx bxs-news'></i> [<b>PLACEHOLDER:</b> Aqui vai a seção de avisos e
+						informações importantes.</p>
 				</div>
-	
+
 				<!-- Links de acesso e formulário de inscrição -->
 				<div id="botoes" class="mb-4 flex flex-wrap justify-center gap-y-2 gap-x-4 text-lg">
-					<button class="shrink-0 min-w-[280px] bg-blue-600 text-indigo-100 font-bold rounded-lg px-4 py-3 transition duration-200 trasition-all hover:(bg-amber-600 border-amber-900 scale-105) border-b-4 border-blue-900">
+					<button
+						class="shrink-0 min-w-[280px] bg-blue-600 text-indigo-100 font-bold rounded-lg px-4 py-3 transition duration-200 trasition-all hover:(bg-amber-600 border-amber-900 scale-105) border-b-4 border-blue-900">
 						<i class='bx bxs-news'></i> ACESSE O EDITAL
 					</button>
-					<button class="shrink-0 min-w-[280px] bg-emerald-600 text-indigo-100 font-bold rounded-lg px-4 py-3 transition duration-200 trasition-all hover:(bg-amber-600 border-amber-900 scale-105) border-b-4 border-emerald-900">
+					<button
+						class="shrink-0 min-w-[280px] bg-emerald-600 text-indigo-100 font-bold rounded-lg px-4 py-3 transition duration-200 trasition-all hover:(bg-amber-600 border-amber-900 scale-105) border-b-4 border-emerald-900">
 						<i class='bx bxs-user-plus'></i> INSCREVA SUA ESCOLA
 					</button>
 				</div>
@@ -145,8 +213,8 @@
 								icon: 'float-right text-3xl bx bx-chevron-right transform transition-transform duration-200'
 							},
 							content: {
-								base: 'w-full whitespace-normal break-words p-1',
-								text: 'px-1 md:px-4 pb-3',
+								base: 'w-full whitespace-normal break-words',
+								text: 'px-1 md:px-4 pb-2',
 								table: {
 									base: 'flex flex-wrap justify-center md:mx-4 mb-3',
 									header: 'text-xs md:(text-sm) text-center font-bold text-indigo-100 bg-[#4510a0]',
@@ -169,17 +237,21 @@
 							}
 						}						
 					}
-				}"
-				>
+				}">
 					<!-- Botão de expandir e recolher os cards -->
 					<span class="flex flex-wrap mt-8 justify-right gap-x-2 mb-1">
-						<span class="px-3 py-2 bg-indigo-600 text-xs md:text-sm text-indigo-100 rounded-lg border-b-4 border-indigo-900 transition duration-200 hover:(bg-indigo-500 border-indigo-700)">
-							<button @click="allExpanded = !allExpanded; $dispatch(allExpanded ? 'expand-all' : 'collapse-all')" x-text="(allExpanded ? 'RECOLHER' : 'EXPANDIR') + ' TUDO'">[Expandir/Recolher]</button>
-							<i class="bx bx-chevron-right scale-150 transform transition-transform duration-200" :class="allExpanded ? 'rotate-90' : ''"></i>
+						<span
+							class="px-3 py-2 bg-indigo-600 text-xs md:text-sm text-indigo-100 rounded-lg border-b-4 border-indigo-900 transition duration-200 hover:(bg-indigo-500 border-indigo-700)">
+							<button
+								@click="allExpanded = !allExpanded; $dispatch(allExpanded ? 'expand-all' : 'collapse-all')"
+								x-text="(allExpanded ? 'RECOLHER' : 'EXPANDIR') + ' TUDO'">[Expandir/Recolher]</button>
+							<i class="bx bx-chevron-right scale-150 transform transition-transform duration-200"
+								:class="allExpanded ? 'rotate-90' : ''"></i>
 						</span>
 					</span>
 
-					<div id="sobre" x-data="{ open: true }" :class="styles.card.base" style="scroll-margin-top: 80px !important;">
+					<div id="sobre" x-data="{ open: true }" :class="styles.card.base"
+						style="scroll-margin-top: 80px !important;">
 						<button @click="open = !open" :class="styles.card.button.base">
 							<span :class="styles.card.button.span">
 								<i class='bx bxs-info-circle'></i>
@@ -187,14 +259,27 @@
 								<i :class="[styles.card.button.icon, open && 'rotate-90']"></i>
 							</span>
 						</button>
-						<div x-show="open" x-collapse.duration.200 @expand-all.window="open = true" @collapse-all.window="open = false" :class="styles.card.content.base">
-							<p :class="styles.card.content.text">O Projeto Estudantes em Ação é uma iniciativa da <b>Controladoria Geral do Município (CGM-SP)</b>, em parceria com a <b>Secretaria Municipal de Educação (SME-SP)</b>, que tem como objetivo reconhecer e prestigiar ações transformadoras no contexto escolar. O Projeto, inspirado pelo trabalho realizado pela Controladoria Geral do Estado de Goiás (CGE-GO), promove a reflexão-ação sobre os mais diversos problemas enfrentados no ambiente da escola, e leva aos estudantes, professores e à toda a comunidade escolar a compreensão de temas como responsabilidade cidadã, participação social, direitos humanos, cultura da paz e coletividade.</p>
-							<p :class="styles.card.content.text">Durante o projeto, cada escola participante organiza um time de <b>40 a 60 estudantes</b> que terá a missão de realizar as atividades de cada etapa, sob a supervisão de <b>1 a 3 professores orientadores</b>.</p>
-							<p :class="styles.card.content.text">Ao final do projeto, são distribuídos <b>mais de R$ 140.000</b> em prêmios para as 10 escolas mais bem avaliadas e seus Grêmios Estudantis.</p>
+						<div x-show="open" x-collapse.duration.200 @expand-all.window="open = true"
+							@collapse-all.window="open = false" :class="styles.card.content.base">
+							<p :class="styles.card.content.text">O Projeto Estudantes em Ação é uma iniciativa da
+								<b>Controladoria Geral do Município (CGM-SP)</b>, em parceria com a <b>Secretaria
+									Municipal de Educação (SME-SP)</b>, que tem como objetivo reconhecer e prestigiar
+								ações transformadoras no contexto escolar. O Projeto, inspirado pelo trabalho realizado
+								pela Controladoria Geral do Estado de Goiás (CGE-GO), promove a reflexão-ação sobre os
+								mais diversos problemas enfrentados no ambiente da escola, e leva aos estudantes,
+								professores e à toda a comunidade escolar a compreensão de temas como responsabilidade
+								cidadã, participação social, direitos humanos, cultura da paz e coletividade.</p>
+							<p :class="styles.card.content.text">Durante o projeto, cada escola participante organiza um
+								time de <b>40 a 60 estudantes</b> que terá a missão de realizar as atividades de cada
+								etapa, sob a supervisão de <b>1 a 3 professores orientadores</b>.</p>
+							<p :class="styles.card.content.text">Ao final do projeto, são distribuídos <b>mais de R$
+									140.000</b> em prêmios para as 10 escolas mais bem avaliadas e seus Grêmios
+								Estudantis.</p>
 						</div>
 					</div>
-		
-					<div id="etapas" x-data="{ open: false }" @expand-all.window="open = true" @collapse-all.window="open = false" :class="styles.card.base">
+
+					<div id="etapas" x-data="{ open: false }" @expand-all.window="open = true"
+						@collapse-all.window="open = false" :class="styles.card.base">
 						<button @click="open = !open" :class="styles.card.button.base">
 							<span :class="styles.card.button.span">
 								<i class="bx bxs-flag"></i>
@@ -213,7 +298,8 @@
 									<th :class="styles.card.content.table.cell">DESCRIÇÃO DAS ATIVIDADES</th>
 								</tr>
 								<tr :class="styles.card.content.table.row">
-									<td :class="styles.card.content.table.cell"><b>Oficina para Professores Orientadores</b></td>
+									<td :class="styles.card.content.table.cell"><b>Oficina para Professores
+											Orientadores</b></td>
 									<td :class="[styles.card.content.table.cell, 'text-left']">
 										Atividade de instrução aos professores para compreensão das atividades.
 									</td>
@@ -221,7 +307,10 @@
 								<tr :class="styles.card.content.table.row">
 									<td :class="styles.card.content.table.cell"><b>Tarefa Especial</b></td>
 									<td :class="[styles.card.content.table.cell, 'text-left']">
-										Atividade de curta duração que instiga a pensar sobre o papel na sociedade. A Tarefa Especial abordará o tema <b>“Jogos de Azar: Riscos e Consequências”</b> e consistirá na participação em oficina expositiva e na elaboração de campanha no ambiente escolar.
+										Atividade de curta duração que instiga a pensar sobre o papel na sociedade. A
+										Tarefa Especial abordará o tema <b>“Jogos de Azar: Riscos e Consequências”</b> e
+										consistirá na participação em oficina expositiva e na elaboração de campanha no
+										ambiente escolar.
 									</td>
 								</tr>
 								<tr :class="styles.card.content.table.row">
@@ -233,13 +322,15 @@
 								<tr :class="styles.card.content.table.row">
 									<td :class="styles.card.content.table.cell"><b>Desafio</b></td>
 									<td :class="[styles.card.content.table.cell, 'text-left']">
-										Identificação do problema através da Auditoria Cívica e discussão sobre como resolvê-lo. A execução dessa solução é o Desafio.
+										Identificação do problema através da Auditoria Cívica e discussão sobre como
+										resolvê-lo. A execução dessa solução é o Desafio.
 									</td>
 								</tr>
 							</table>
-							
+
 							<p :class="styles.card.content.text">
-								Conforme especificado no edital, as etapas serão avaliadas conforme os seguintes critérios:
+								Conforme especificado no edital, as etapas serão avaliadas conforme os seguintes
+								critérios:
 							</p>
 
 							<table :class="styles.card.content.table.base">
@@ -249,8 +340,11 @@
 									<th :class="styles.card.content.table.cell">PONTUAÇÃO MÁXIMA</th>
 								</tr>
 								<tr :class="styles.card.content.table.row">
-									<td :class="styles.card.content.table.cell"><b>Oficina para Professores Orientadores</b></td>
-									<td :class="[styles.card.content.table.cell, 'text-left']">- Presença de, pelo menos, um professor orientador na oficina expositiva sobre o tema <b>"Jogos de Azar: Riscos e Consequências"</td>
+									<td :class="styles.card.content.table.cell"><b>Oficina para Professores
+											Orientadores</b></td>
+									<td :class="[styles.card.content.table.cell, 'text-left']">- Presença de, pelo
+										menos, um professor orientador na oficina expositiva sobre o tema <b>"Jogos de
+											Azar: Riscos e Consequências"</td>
 									<td :class="styles.card.content.table.cell">10 pontos</td>
 								</tr>
 								<tr :class="styles.card.content.table.row">
@@ -287,8 +381,9 @@
 							</table>
 						</div>
 					</div>
-		
-					<div id="cronograma" x-data="{ open: false }" @expand-all.window="open = true" @collapse-all.window="open = false" :class="styles.card.base">
+
+					<div id="cronograma" x-data="{ open: false }" @expand-all.window="open = true"
+						@collapse-all.window="open = false" :class="styles.card.base">
 						<button @click="open = !open" :class="styles.card.button.base">
 							<span :class="styles.card.button.span">
 								<i class='bx bxs-calendar'></i>
@@ -304,15 +399,19 @@
 							<table :class="styles.card.content.table.base">
 								<tr :class="styles.card.content.table.header">
 									<th :class="styles.card.content.table.cell">ATIVIDADE</th>
-									<th :class="styles.card.content.table.cell"><p>CRONOGRAMA PREVISTO</p></th>
+									<th :class="styles.card.content.table.cell">
+										<p>CRONOGRAMA PREVISTO</p>
+									</th>
 								</tr>
 								<tr :class="styles.card.content.table.row">
 									<td :class="styles.card.content.table.cell"><b>Período de inscrições</b></td>
 									<td :class="styles.card.content.table.cell">09/06/2025 a 04/07/2025</td>
 								</tr>
 								<tr :class="styles.card.content.table.row">
-									<td :class="styles.card.content.table.cell"><b>Oficina para Professores Orientadores</b></td>
-									<td :class="styles.card.content.table.cell">Agosto/2025<br>(data exata a ser definida)</td>
+									<td :class="styles.card.content.table.cell"><b>Oficina para Professores
+											Orientadores</b></td>
+									<td :class="styles.card.content.table.cell">Agosto/2025<br>(data exata a ser
+										definida)</td>
 								</tr>
 								<tr :class="styles.card.content.table.row">
 									<td :class="styles.card.content.table.cell"><b>Tarefa Especial</b></td>
@@ -329,8 +428,9 @@
 							</table>
 						</div>
 					</div>
-		
-					<div id="premiacao" x-data="{ open: false }" @expand-all.window="open = true" @collapse-all.window="open = false" :class="styles.card.base">
+
+					<div id="premiacao" x-data="{ open: false }" @expand-all.window="open = true"
+						@collapse-all.window="open = false" :class="styles.card.base">
 						<button @click="open = !open" :class="styles.card.button.base">
 							<span :class="styles.card.button.span">
 								<i class="bx bxs-medal"></i>
@@ -340,7 +440,8 @@
 						</button>
 						<div x-show="open" x-collapse.duration.200 :class="styles.card.content.base">
 							<p :class="styles.card.content.text">
-								Confira abaixo a premiação para as 10 escolas mais bem classificadas e seus Grêmios Estudantis:
+								Confira abaixo a premiação para as 10 escolas mais bem classificadas e seus Grêmios
+								Estudantis:
 							</p>
 
 							<span class="flex flex-wrap justify-center gap-x-2">
@@ -453,8 +554,9 @@
 							</span>
 						</div>
 					</div>
-		
-					<div id="edicoes" x-data="{ open: false }" @expand-all.window="open = true" @collapse-all.window="open = false" :class="styles.card.base">
+
+					<div id="edicoes" x-data="{ open: false }" @expand-all.window="open = true"
+						@collapse-all.window="open = false" :class="styles.card.base">
 						<button @click="open = !open" :class="styles.card.button.base">
 							<span :class="styles.card.button.span">
 								<i class='bx bxs-carousel'></i>
@@ -464,12 +566,15 @@
 						</button>
 						<div x-show="open" x-collapse.duration.200 :class="styles.card.content.base">
 							<p :class="styles.card.content.text">
-								<a href="https://capital.sp.gov.br/web/controladoria_geral/w/projeto-estudantes-em-a%C3%A7%C3%A3o-vai-distribuir-mais-de-140-mil-reais-em-pr%C3%AAmios-para-escolas-municipais-e-gr%C3%AAmios-estudantis-de-s%C3%A3o-paulo" target="_blank"><b><u>Clique aqui</u></b></a> para conferir as <b>edições anteriores</b> do projeto.
+								<a href="https://capital.sp.gov.br/web/controladoria_geral/w/projeto-estudantes-em-a%C3%A7%C3%A3o-vai-distribuir-mais-de-140-mil-reais-em-pr%C3%AAmios-para-escolas-municipais-e-gr%C3%AAmios-estudantis-de-s%C3%A3o-paulo"
+									target="_blank"><b><u>Clique aqui</u></b></a> para conferir as <b>edições
+									anteriores</b> do projeto.
 							</p>
 						</div>
 					</div>
-		
-					<div id="protecao-dados" x-data="{ open: false }" @expand-all.window="open = true" @collapse-all.window="open = false" :class="styles.card.base">
+
+					<div id="protecao-dados" x-data="{ open: false }" @expand-all.window="open = true"
+						@collapse-all.window="open = false" :class="styles.card.base">
 						<button @click="open = !open" :class="styles.card.button.base">
 							<span :class="styles.card.button.span">
 								<i class='bx bxs-check-shield'></i>
@@ -479,11 +584,13 @@
 						</button>
 						<div x-show="open" x-collapse.duration.200 :class="styles.card.content.base">
 							<!-- TODO: Inserir as informações acerca da privacidade e proteção de dados -->
-							<p :class="styles.card.content.text">[Inserir as  informações acerca da <b>privacidade e proteção de dados</b>]</p>
+							<p :class="styles.card.content.text">[Inserir as informações acerca da <b>privacidade e
+									proteção de dados</b>]</p>
 						</div>
 					</div>
-		
-					<div id="faq" x-data="{ open: false, allExpandedFaq: false }" @expand-all.window="open = true" @collapse-all.window="open = false" :class="styles.card.base">
+
+					<div id="faq" x-data="{ open: false, allExpandedFaq: false }" @expand-all.window="open = true"
+						@collapse-all.window="open = false" :class="styles.card.base">
 						<button @click="open = !open" :class="styles.card.button.base">
 							<span :class="styles.card.button.span">
 								<i class='bx bxs-chat'></i>
@@ -494,35 +601,50 @@
 						<div x-show="open" x-collapse.duration.200>
 							<!-- Botão de expandir e recolher os cards do faq -->
 							<span class="flex flex-wrap my-1 py-1 px-1 md:px-4 justify-right gap-x-2 mb-1">
-								<span class="px-3 py-1 bg-indigo-600 text-xs md:text-sm text-indigo-100 rounded-lg border-b-4 border-indigo-900 transition duration-200 hover:(bg-indigo-500 border-indigo-700)">
-									<button @click="allExpandedFaq = !allExpandedFaq; $dispatch(allExpandedFaq ? 'expand-all-faq' : 'collapse-all-faq')" x-text="(allExpandedFaq ? 'RECOLHER' : 'EXPANDIR') + ' TUDO'">[Expandir/Recolher]</button>
-									<i class="bx bx-chevron-right scale-150 transform transition-transform duration-200" :class="allExpandedFaq ? 'rotate-90' : ''"></i>
+								<span
+									class="px-3 py-1 bg-indigo-600 text-xs md:text-sm text-indigo-100 rounded-lg border-b-4 border-indigo-900 transition duration-200 hover:(bg-indigo-500 border-indigo-700)">
+									<button
+										@click="allExpandedFaq = !allExpandedFaq; $dispatch(allExpandedFaq ? 'expand-all-faq' : 'collapse-all-faq')"
+										x-text="(allExpandedFaq ? 'RECOLHER' : 'EXPANDIR') + ' TUDO'">[Expandir/Recolher]</button>
+									<i class="bx bx-chevron-right scale-150 transform transition-transform duration-200"
+										:class="allExpandedFaq ? 'rotate-90' : ''"></i>
 								</span>
 							</span>
-							<div x-data="{ openFaq: false }" @expand-all-faq.window="openFaq = true" @collapse-all-faq.window="openFaq = false" :class="[styles.card.base, styles.card.faqcard.base]">
+							<div x-data="{ openFaq: false }" @expand-all-faq.window="openFaq = true"
+								@collapse-all-faq.window="openFaq = false"
+								:class="[styles.card.base, styles.card.faqcard.base]">
 								<button @click="openFaq = !openFaq" :class="styles.card.faqcard.content.button.base">
 									<span :class="styles.card.faqcard.content.button.span">
 										<b>Quem poderá participar?</b>
-										<i :class="[styles.card.button.icon, styles.card.faqcard.content.button.icon, openFaq ? 'rotate-90' : '']"></i>
+										<i
+											:class="[styles.card.button.icon, styles.card.faqcard.content.button.icon, openFaq ? 'rotate-90' : '']"></i>
 									</span>
 								</button>
 								<div x-show="openFaq" x-collapse.duration.200 :class="styles.card.faqcard.content.base">
-									<p :class="styles.card.faqcard.content.text">Poderão participar escolas públicas municipais, preferencialmente, que possuam Grêmios Estudantis.</p>
+									<p :class="styles.card.faqcard.content.text">Poderão participar escolas públicas
+										municipais, preferencialmente, que possuam Grêmios Estudantis.</p>
 								</div>
 							</div>
-							<div x-data="{ openFaq: false }" @expand-all-faq.window="openFaq = true" @collapse-all-faq.window="openFaq = false" :class="[styles.card.base, styles.card.faqcard.base]">
+							<div x-data="{ openFaq: false }" @expand-all-faq.window="openFaq = true"
+								@collapse-all-faq.window="openFaq = false"
+								:class="[styles.card.base, styles.card.faqcard.base]">
 								<button @click="openFaq = !openFaq" :class="styles.card.faqcard.content.button.base">
 									<span :class="styles.card.faqcard.content.button.span">
 										<b>Quantas escolas poderão participar?</b>
-										<i :class="[styles.card.button.icon, styles.card.faqcard.content.button.icon, openFaq ? 'rotate-90' : '']"></i>
+										<i
+											:class="[styles.card.button.icon, styles.card.faqcard.content.button.icon, openFaq ? 'rotate-90' : '']"></i>
 									</span>
 								</button>
 								<div x-show="openFaq" x-collapse.duration.200 :class="styles.card.faqcard.content.base">
-									<p :class="styles.card.faqcard.content.text">Seguindo o critério de quantidade de escolas públicas municipais por Diretoria Regional de Educação – DRE, <u>as vagas serão limitadas a um total de <b>54 escolas</b></u>, distribuidas por DRE conforme tabela abaixo:</p>
+									<p :class="styles.card.faqcard.content.text">Seguindo o critério de quantidade de
+										escolas públicas municipais por Diretoria Regional de Educação – DRE, <u>as
+											vagas serão limitadas a um total de <b>54 escolas</b></u>, distribuidas por
+										DRE conforme tabela abaixo:</p>
 
 									<table :class="styles.card.content.table.base">
 										<tr :class="styles.card.content.table.header">
-											<th :class="styles.card.content.table.cell">DIRETORIA REGIONAL DE EDUCAÇÃO</th>
+											<th :class="styles.card.content.table.cell">DIRETORIA REGIONAL DE EDUCAÇÃO
+											</th>
 											<th :class="styles.card.content.table.cell">VAGAS</th>
 										</tr>
 										<tr :class="styles.card.content.table.row">
@@ -584,16 +706,23 @@
 									</table>
 								</div>
 							</div>
-							<div x-data="{ openFaq: false }" @expand-all-faq.window="openFaq = true" @collapse-all-faq.window="openFaq = false" :class="[styles.card.base, styles.card.faqcard.base]">
+							<div x-data="{ openFaq: false }" @expand-all-faq.window="openFaq = true"
+								@collapse-all-faq.window="openFaq = false"
+								:class="[styles.card.base, styles.card.faqcard.base]">
 								<button @click="openFaq = !openFaq" :class="styles.card.faqcard.content.button.base">
 									<span :class="styles.card.faqcard.content.button.span">
 										<b>Quais serão os critérios de seleção das escolas?</b>
-										<i :class="[styles.card.button.icon, styles.card.faqcard.content.button.icon, openFaq ? 'rotate-90' : '']"></i>
+										<i
+											:class="[styles.card.button.icon, styles.card.faqcard.content.button.icon, openFaq ? 'rotate-90' : '']"></i>
 									</span>
 								</button>
 								<div x-show="openFaq" x-collapse.duration.200 :class="styles.card.faqcard.content.base">
 									<p :class="styles.card.faqcard.content.text">
-										A seleção das escolas para as vagas disponíveis seguirá os critérios elencados abaixo. Escolas localizadas nos territórios classificados como mais vulneráveis, de acordo com as definições estabelecidas pelo Índice Paulista de Vulnerabilidade Social (IPVS 2010) da Fundação Sistema Estadual de Análise de Dados – SEADE, receberão pontos extras.
+										A seleção das escolas para as vagas disponíveis seguirá os critérios elencados
+										abaixo. Escolas localizadas nos territórios classificados como mais vulneráveis,
+										de acordo com as definições estabelecidas pelo Índice Paulista de
+										Vulnerabilidade Social (IPVS 2010) da Fundação Sistema Estadual de Análise de
+										Dados – SEADE, receberão pontos extras.
 									</p>
 
 									<span class="flex flex-wrap justify-center gap-x-2">
@@ -605,15 +734,18 @@
 													<th :class="styles.card.content.table.cell">PONTUAÇÃO</th>
 												</tr>
 												<tr :class="styles.card.content.table.row">
-													<td :class="styles.card.content.table.cell">Existência de Grêmio Estudantil</td>
+													<td :class="styles.card.content.table.cell">Existência de Grêmio
+														Estudantil</td>
 													<td :class="styles.card.content.table.cell">5</td>
 												</tr>
 												<tr :class="styles.card.content.table.row">
-													<td :class="styles.card.content.table.cell">Disponibilidade de, no mínimo, 40 estudantes para participação no Projeto</td>
+													<td :class="styles.card.content.table.cell">Disponibilidade de, no
+														mínimo, 40 estudantes para participação no Projeto</td>
 													<td :class="styles.card.content.table.cell">3</td>
 												</tr>
 												<tr :class="styles.card.content.table.row">
-													<td :class="styles.card.content.table.cell">Existência de Projeto de Educomunicação</td>
+													<td :class="styles.card.content.table.cell">Existência de Projeto de
+														Educomunicação</td>
 													<td :class="styles.card.content.table.cell">2</td>
 												</tr>
 												<tr :class="styles.card.content.table.row">
@@ -630,15 +762,18 @@
 													<th :class="styles.card.content.table.cell">PONTUAÇÃO EXTRA</th>
 												</tr>
 												<tr :class="styles.card.content.table.row">
-													<td :class="styles.card.content.table.cell">Grupo 6 – Vulnerabilidade Muito Alta</td>
+													<td :class="styles.card.content.table.cell">Grupo 6 –
+														Vulnerabilidade Muito Alta</td>
 													<td :class="styles.card.content.table.cell">3</td>
 												</tr>
 												<tr :class="styles.card.content.table.row">
-													<td :class="styles.card.content.table.cell">Grupo 5 – Vulnerabilidade Alta</td>
+													<td :class="styles.card.content.table.cell">Grupo 5 –
+														Vulnerabilidade Alta</td>
 													<td :class="styles.card.content.table.cell">2</td>
 												</tr>
 												<tr :class="styles.card.content.table.row">
-													<td :class="styles.card.content.table.cell">Grupo 4 – Vulnerabilidade Média</td>
+													<td :class="styles.card.content.table.cell">Grupo 4 –
+														Vulnerabilidade Média</td>
 													<td :class="styles.card.content.table.cell">1</td>
 											</table>
 										</span>
@@ -648,34 +783,46 @@
 									</p>
 								</div>
 							</div>
-							<div x-data="{ openFaq: false }" @expand-all-faq.window="openFaq = true" @collapse-all-faq.window="openFaq = false" :class="[styles.card.base, styles.card.faqcard.base]">
+							<div x-data="{ openFaq: false }" @expand-all-faq.window="openFaq = true"
+								@collapse-all-faq.window="openFaq = false"
+								:class="[styles.card.base, styles.card.faqcard.base]">
 								<button @click="openFaq = !openFaq" :class="styles.card.faqcard.content.button.base">
 									<span :class="styles.card.faqcard.content.button.span">
 										<b>Quais e como serão as atividades?</b>
-										<i :class="[styles.card.button.icon, styles.card.faqcard.content.button.icon, openFaq ? 'rotate-90' : '']"></i>
+										<i
+											:class="[styles.card.button.icon, styles.card.faqcard.content.button.icon, openFaq ? 'rotate-90' : '']"></i>
 									</span>
 								</button>
 								<div x-show="openFaq" x-collapse.duration.200 :class="styles.card.faqcard.content.base">
 									<p :class="styles.card.faqcard.content.text">
-										Veja a seção <a href="#etapas"><i class="bx bxs-flag"></i> <b><u>Etapas</u></b></a> acima para saber mais sobre quais atividades serão desenvolvidas ao longo do projeto e como serão realizadas.
+										Veja a seção <a href="#etapas"><i class="bx bxs-flag"></i>
+											<b><u>Etapas</u></b></a> acima para saber mais sobre quais atividades serão
+										desenvolvidas ao longo do projeto e como serão realizadas.
 									</p>
 								</div>
 							</div>
-							<div x-data="{ openFaq: false }" @expand-all-faq.window="openFaq = true" @collapse-all-faq.window="openFaq = false" :class="[styles.card.base, styles.card.faqcard.base]">
+							<div x-data="{ openFaq: false }" @expand-all-faq.window="openFaq = true"
+								@collapse-all-faq.window="openFaq = false"
+								:class="[styles.card.base, styles.card.faqcard.base]">
 								<button @click="openFaq = !openFaq" :class="styles.card.faqcard.content.button.base">
 									<span :class="styles.card.faqcard.content.button.span">
 										<b>Como se dará a pontuação das atividades</b>
-										<i :class="[styles.card.button.icon, styles.card.faqcard.content.button.icon, openFaq ? 'rotate-90' : '']"></i>
+										<i
+											:class="[styles.card.button.icon, styles.card.faqcard.content.button.icon, openFaq ? 'rotate-90' : '']"></i>
 									</span>
 								</button>
 								<div x-show="openFaq" x-collapse.duration.200 :class="styles.card.faqcard.content.base">
-									<p :class="styles.card.faqcard.content.text">Os critérios de avaliação e as pontuações máximas definidas no edital para cada etapa podem ser conferidos na seção <a href="#etapas"><i class="bx bxs-flag"></i> <b><u>Etapas</u></b></a> acima.</p>
+									<p :class="styles.card.faqcard.content.text">Os critérios de avaliação e as
+										pontuações máximas definidas no edital para cada etapa podem ser conferidos na
+										seção <a href="#etapas"><i class="bx bxs-flag"></i> <b><u>Etapas</u></b></a>
+										acima.</p>
 								</div>
 							</div>
 						</div>
 					</div>
 
-					<div id="contato" x-data="{ open: false }" @expand-all.window="open = true" @collapse-all.window="open = false" :class="styles.card.base">
+					<div id="contato" x-data="{ open: false }" @expand-all.window="open = true"
+						@collapse-all.window="open = false" :class="styles.card.base">
 						<button @click="open = !open" :class="styles.card.button.base">
 							<span :class="styles.card.button.span">
 								<i class='bx bxs-envelope'></i>
@@ -684,7 +831,10 @@
 							</span>
 						</button>
 						<div x-show="open" x-collapse.duration.200 :class="styles.card.content.base">
-							<p :class="styles.card.content.text">Em caso de dúvidas, entre em contato com a equipe do projeto através do e-mail: <a href="mailto:estudantesemacao@prefeitura.sp.gov.br"><b><u>estudantesemacao@prefeitura.sp.gov.br</u></b></a></p>
+							<p :class="styles.card.content.text">Em caso de dúvidas, entre em contato com a equipe do
+								projeto através do e-mail: <a
+									href="mailto:estudantesemacao@prefeitura.sp.gov.br"><b><u>estudantesemacao@prefeitura.sp.gov.br</u></b></a>
+							</p>
 						</div>
 					</div>
 				</div>
