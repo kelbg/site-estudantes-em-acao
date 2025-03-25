@@ -102,13 +102,6 @@
 				<button onclick="scrollToCard('home')" :class="styles.navlink" class="flex items-center -ml-2 opacity-80 hover:opacity-100">
 					<img src="assets/images/logo_estudantes_pequeno.png" alt="Logo do Projeto Estudantes em Ação" class="h-12 w-auto min-w-[96px] md:(h-20)">
 				</button>
-<<<<<<< HEAD
-=======
-				<!-- <a href="#home" target="_self" class="flex items-center -ml-2 opacity-80 hover:opacity-100">
-					<img src="assets/images/logo_estudantes_pequeno.png" alt="Logo do Projeto Estudantes em Ação"
-						class="h-12 w-auto min-w-[96px] md:(h-20)">
-				</a> -->
->>>>>>> d51b20c50184ca04f3097785a0c0dcadba309def
 
 				<!-- Links de navegação -->
 				<div class="flex space-x-3">
@@ -758,9 +751,7 @@
 								</button>
 								<div x-show="openFaq" x-collapse.duration.200 :class="styles.card.faqcard.content.base">
 									<p :class="styles.card.faqcard.content.text">
-										Veja a seção <a href="#etapas"><i class="bx bxs-flag"></i>
-											<b><u>Etapas</u></b></a> acima para saber mais sobre quais atividades serão
-										desenvolvidas ao longo do Projeto e como serão realizadas.
+										Veja a seção <a href="#" onclick="event.preventDefault(); scrollToCard('etapas')"><i class="bx bxs-flag"></i><b><u>Etapas</u></b></a> acima para saber mais sobre quais atividades serão desenvolvidas ao longo do Projeto e como serão realizadas.
 									</p>
 								</div>
 							</div>
@@ -775,10 +766,7 @@
 									</span>
 								</button>
 								<div x-show="openFaq" x-collapse.duration.200 :class="styles.card.faqcard.content.base">
-									<p :class="styles.card.faqcard.content.text">Os critérios de avaliação e as
-										pontuações máximas definidas no edital para cada etapa podem ser conferidos na
-										seção <a href="#etapas"><i class="bx bxs-flag"></i> <b><u>Etapas</u></b></a>
-										acima.</p>
+									<p :class="styles.card.faqcard.content.text">Os critérios de avaliação e as pontuações máximas definidas no edital para cada etapa podem ser conferidos na seção <a href="#" onclick="event.preventDefault(); scrollToCard('etapas')"><i class="bx bxs-flag"></i><b><u>Etapas</u></b></a> acima.</p>
 								</div>
 							</div>
 						</div>
