@@ -265,7 +265,7 @@
 						</span>
 					</span>
 
-					<div id="sobre" x-data="{ open: false }" :class="styles.card.base"
+					<div id="sobre" x-data="{ open: true }" :class="styles.card.base"
 						style="scroll-margin-top: 80px !important;">
 						<button @click="open = !open" :class="styles.card.button.base">
 							<span :class="styles.card.button.span">
@@ -563,7 +563,7 @@
 						</div>
 					</div>
 
-					<div id="faq" x-data="{ open: true, allExpandedFaq: false }" @expand-all.window="open = true"
+					<div id="faq" x-data="{ open: false, allExpandedFaq: false }" @expand-all.window="open = true"
 						@collapse-all.window="open = false" :class="styles.card.base">
 						<button @click="open = !open" :class="styles.card.button.base">
 							<span :class="styles.card.button.span">
