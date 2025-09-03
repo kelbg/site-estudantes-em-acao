@@ -271,6 +271,7 @@
 						</span>
 					</span>
 
+					<!-- <div id="sobre" x-data="{ open: true }" :class="styles.card.base" -->
 					<div id="sobre" x-data="{ open: true }" :class="styles.card.base"
 						style="scroll-margin-top: 80px !important;">
 						<button @click="open = !open" :class="styles.card.button.base">
@@ -557,7 +558,8 @@
 						</div>
 					</div>
 
-					<div id="edicoes" x-data="{ open: false }" @expand-all.window="open = true"
+					 <!-- Baseado nos cards da seção de faq -->
+					 <div id="edicoes" x-data="{ open: false, allExpandedEdicoes: false }" @expand-all.window="open = true"
 						@collapse-all.window="open = false" :class="styles.card.base">
 						<button @click="open = !open" :class="styles.card.button.base">
 							<span :class="styles.card.button.span">
@@ -566,13 +568,65 @@
 								<i :class="[styles.card.button.icon, open && 'rotate-90']"></i>
 							</span>
 						</button>
-						<div x-show="open" x-collapse.duration.200 :class="styles.card.content.base">
-							<p :class="styles.card.content.text">
-								<a href="https://capital.sp.gov.br/web/controladoria_geral/w/projeto-estudantes-em-a%C3%A7%C3%A3o-vai-distribuir-mais-de-140-mil-reais-em-pr%C3%AAmios-para-escolas-municipais-e-gr%C3%AAmios-estudantis-de-s%C3%A3o-paulo" target="_blank"> <b><u>Clique aqui</u></b></a> para conferir as <b>edições anteriores</b> do Projeto.
-							</p>
+						<div x-show="open" x-collapse.duration.200>
+							<!-- Botão de expandir e recolher os cards da seção de edições -->
+							<span class="flex flex-wrap my-1 py-1 px-1 md:px-4 gap-x-2 mb-1">
+								<p>Confira os detalhes das edições anteriores do Projeto Estudantes em Ação</p>
+								<span class="ml-auto px-3 py-1 bg-indigo-600 text-xs md:text-sm text-indigo-100 rounded-lg border-b-4 border-indigo-900 transition duration-200 hover:(bg-indigo-500 border-indigo-700)">
+									<button
+										@click="allExpandedEdicoes = !allExpandedEdicoes; $dispatch(allExpandedEdicoes ? 'expand-all-edicoes' : 'collapse-all-edicoes')"
+										x-text="(allExpandedEdicoes ? 'RECOLHER' : 'EXPANDIR') + ' TUDO'">[Expandir/Recolher]</button>
+									<i class="bx bx-chevron-right scale-150 transform transition-transform duration-200" :class="allExpandedEdicoes ? 'rotate-90' : ''"></i>
+								</span>
+							</span>
+							<div x-data="{ openEdicoes: false }" @expand-all-edicoes.window="openEdicoes = true"
+								@collapse-all-edicoes.window="openEdicoes = false"
+								:class="[styles.card.base, styles.card.faqcard.base]">
+								<button @click="openEdicoes = !openEdicoes" :class="styles.card.faqcard.content.button.base">
+									<span :class="styles.card.faqcard.content.button.span">
+										<b>1ª edição</b>
+										<i :class="[styles.card.button.icon, styles.card.faqcard.content.button.icon, openEdicoes ? 'rotate-90' : '']"></i>
+									</span>
+								</button>
+								<div x-show="openEdicoes" x-collapse.duration.200 :class="styles.card.faqcard.content.base">
+									<p :class="styles.card.faqcard.content.text">
+										<a href="https://prefeitura.sp.gov.br/web/controladoria_geral/w/10-escolas-municipais-foram-premiadas-na-1%C2%BA-edi%C3%A7%C3%A3o-do-projeto-estudantes-em-a%C3%A7%C3%A3o" target="_blank">
+											<i class='bx bx-news'></i> <u>Divulgação</u>
+										</a>
+										<br>
+										<a href="https://prefeitura.sp.gov.br/w/vencedores-do-projeto-estudantes-em-a%C3%A7%C3%A3o-passam-dia-com-prefeito-e-visitam-edif%C3%ADcio-matarazzo" target="_blank">
+											<i class='bx bx-news'></i> <u>Dia com o Prefeito</u>
+										</a>
+										<br>
+										<a href="https://prefeitura.sp.gov.br/documents/d/controladoria_geral/relatorio-estudantes-em-acao-2023-1-pdf" target="_blank">
+											<i class='bx bx-news'></i> <u>Relatório da 1ª edição</u>
+										</a>
+									</p>
+								</div>
+							</div>
+							<div x-data="{ openEdicoes: false }" @expand-all-edicoes.window="openEdicoes = true"
+								@collapse-all-edicoes.window="openEdicoes = false"
+								:class="[styles.card.base, styles.card.faqcard.base]">
+								<button @click="openEdicoes = !openEdicoes" :class="styles.card.faqcard.content.button.base">
+									<span :class="styles.card.faqcard.content.button.span">
+										<b>2ª edição</b>
+										<i :class="[styles.card.button.icon, styles.card.faqcard.content.button.icon, openEdicoes ? 'rotate-90' : '']"></i>
+									</span>
+								</button>
+								<div x-show="openEdicoes" x-collapse.duration.200 :class="styles.card.faqcard.content.base">
+									<p :class="styles.card.faqcard.content.text">
+										<a href="https://prefeitura.sp.gov.br/web/controladoria_geral/w/projeto-estudantes-em-a%C3%A7%C3%A3o-vai-distribuir-mais-de-140-mil-reais-em-pr%C3%AAmios-para-escolas-municipais-e-gr%C3%AAmios-estudantis-de-s%C3%A3o-paulo" target="_blank">
+											<i class='bx bx-news'></i> <u>Premiação</u>
+										</a>
+										<br>
+										<a href="https://prefeitura.sp.gov.br/web/controladoria_geral/w/estudantes-da-emef-s%C3%B3crates-brasileiro-vivem-experi%C3%AAncia-de-um-dia-de-prefeito-no-edif%C3%ADcio-matarazzo" target="_blank">
+											<i class='bx bx-news'></i> <u>Dia com o Prefeito</u>
+										</a>
+									</p>
+								</div>
+							</div>
 						</div>
 					</div>
-
 					<div id="faq" x-data="{ open: false, allExpandedFaq: false }" @expand-all.window="open = true"
 						@collapse-all.window="open = false" :class="styles.card.base">
 						<button @click="open = !open" :class="styles.card.button.base">
