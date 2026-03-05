@@ -606,7 +606,7 @@
 								<div x-show="openEdicoes" x-collapse.duration.200 :class="styles.card.faqcard.content.base">
 									<p :class="styles.card.faqcard.content.text">
 										<a href="https://prefeitura.sp.gov.br/web/controladoria_geral/w/10-escolas-municipais-foram-premiadas-na-1%C2%BA-edi%C3%A7%C3%A3o-do-projeto-estudantes-em-a%C3%A7%C3%A3o" target="_blank">
-											<i class='bx bx-news'></i> <u>Divulgação</u>
+											<i class='bx bx-news'></i> <u>Premiação</u>
 										</a>
 										<br>
 										<a href="https://prefeitura.sp.gov.br/w/vencedores-do-projeto-estudantes-em-a%C3%A7%C3%A3o-passam-dia-com-prefeito-e-visitam-edif%C3%ADcio-matarazzo" target="_blank">
@@ -640,6 +640,23 @@
 										<br>
 										<a href="https://prefeitura.sp.gov.br/documents/d/controladoria_geral/relatorio-estudantes-em-acao-2024-diagramado-pdf" target="_blank">
 											<i class='bx bx-news'></i> <u>Relatório da 2ª edição</u>
+										</a>
+									</p>
+								</div>
+							</div>
+							<div x-data="{ openEdicoes: false }" @expand-all-edicoes.window="openEdicoes = true"
+								@collapse-all-edicoes.window="openEdicoes = false"
+								:class="[styles.card.base, styles.card.faqcard.base]">
+								<button @click="openEdicoes = !openEdicoes" :class="styles.card.faqcard.content.button.base">
+									<span :class="styles.card.faqcard.content.button.span">
+										<b>3ª edição</b>
+										<i :class="[styles.card.button.icon, styles.card.faqcard.content.button.icon, openEdicoes ? 'rotate-90' : '']"></i>
+									</span>
+								</button>
+								<div x-show="openEdicoes" x-collapse.duration.200 :class="styles.card.faqcard.content.base">
+									<p :class="styles.card.faqcard.content.text">
+										<a href="https://prefeitura.sp.gov.br/web/controladoria_geral/w/projeto-estudantes-em-a%C3%A7%C3%A3o-premia-escolas-destaque-da-3%C2%AA-edi%C3%A7%C3%A3o" target="_blank">
+											<i class='bx bx-news'></i> <u>Premiação</u>
 										</a>
 									</p>
 								</div>
