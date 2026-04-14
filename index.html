@@ -397,7 +397,7 @@
 							</table>
 
 							<p :class="styles.card.content.text">
-								<b>ATENÇÃO: Todas as atividades deverão ser desenvolvidas em conjunto com os estudantes, dentro do turno regular de aulas.</b>
+								Todas as atividades deverão ser desenvolvidas em conjunto com os estudantes, dentro do turno regular de aulas.
 							</p>
 						</div>
 					</div>
@@ -446,7 +446,7 @@
 								</tr>
 							</table>
 							<p :class="styles.card.content.text">
-								<b>ATENÇÃO: As oficinas destinadas aos professores orientadores, incluindo a tarefa especial, serão ofertadas em dois horários (manhã e tarde) para possibilitar maior flexibilidade de participação.</b>
+								As oficinas destinadas aos professores orientadores, incluindo a tarefa especial, serão ofertadas em dois horários (manhã e tarde) para possibilitar maior flexibilidade de participação.
 							</p>
 						</div>
 					</div>
@@ -720,12 +720,12 @@
 								:class="[styles.card.base, styles.card.faqcard.base]">
 								<button @click="openFaq = !openFaq" :class="styles.card.faqcard.content.button.base">
 									<span :class="styles.card.faqcard.content.button.span">
-										<b>Como se dará a formação dos times no projeto? </b>
+										<b>Como se dará a formação dos times no Projeto? </b>
 										<i :class="[styles.card.button.icon, styles.card.faqcard.content.button.icon, openFaq ? 'rotate-90' : '']"></i>
 									</span>
 								</button>
 								<div x-show="openFaq" x-collapse.duration.200 :class="styles.card.faqcard.content.base">
-									<p :class="styles.card.faqcard.content.text">Durante o Projeto, cada escola participante deverá organizar um time composto por 40 a 60 estudantes, responsável pela realização das atividades de cada etapa, sob a supervisão de 1 a 3 professores orientadores.</br>Caso seja necessário, a composição da equipe poderá ser alterada ao longo do processo. A desistência de um estudante não causa a desclassificação do grupo, sendo permitida sua substituição. Da mesma forma, é possível substituir ou incluir um novo professor orientador. Em ambos os casos, a coordenação do projeto deverá ser informada para a devida atualização. </p>
+									<p :class="styles.card.faqcard.content.text">Durante o Projeto, cada escola participante deverá organizar um time composto por 40 a 60 estudantes, responsável pela realização das atividades de cada etapa, sob a supervisão de 1 a 3 professores orientadores.</br></br>Caso seja necessário, a composição da equipe poderá ser alterada ao longo do processo. A desistência de um estudante não causa a desclassificação do grupo, sendo permitida sua substituição. Da mesma forma, é possível substituir ou incluir um novo professor orientador. Em ambos os casos, a coordenação do projeto deverá ser informada para a devida atualização. </p>
 								</div>
 							</div>
 							<div x-data="{ openFaq: false }" @expand-all-faq.window="openFaq = true"
