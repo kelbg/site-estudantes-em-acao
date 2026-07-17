@@ -984,6 +984,274 @@
 							</p>
 						</div>
 					</div>
+
+
+					<div id="resultado" x-data="{ open: false }" @expand-all.window="open = true"
+						@collapse-all.window="open = false" :class="styles.card.base">
+						<button @click="open = !open" :class="styles.card.button.base">
+							<span :class="styles.card.button.span">
+								<i class='bx bxs-school'></i>
+								<b>ESCOLAS SELECIONADAS</b>
+								<i :class="[styles.card.button.icon, open && 'rotate-90']"></i>
+							</span>
+						</button>
+						<div x-show="open" x-collapse.duration.200 :class="styles.card.content.base">
+							<p :class="styles.card.content.text">
+								As inscrições para a 4ª edição do Projeto Estudantes em Ação permaneceram abertas de 08/06/2026 a 03/07/2026, com 86 escolas inscritas. Em conformidade com o item 4.2 do Edital nº 01/2026 – CGM/SME, foram selecionadas as <b>60 escolas</b> abaixo, conforme os critérios de pontuação do item 4.5 do Edital.
+							</p>
+
+							<table :class="styles.card.content.table.base">
+								<tr :class="styles.card.content.table.header">
+									<th :class="styles.card.content.table.cell">ESCOLA</th>
+									<th :class="styles.card.content.table.cell">DRE</th>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Maria Aparecida Vilasboas, Profa.</td>
+									<td :class="styles.card.content.table.cell">São Mateus</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Jardim da Conquista</td>
+									<td :class="styles.card.content.table.cell">Pirituba/Jaraguá</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Rui Bloem</td>
+									<td :class="styles.card.content.table.cell">Pirituba/Jaraguá</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Jardim Fontalis</td>
+									<td :class="styles.card.content.table.cell">Jaçanã/Tremembé</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Renato Antonio Checchia, Prof.</td>
+									<td :class="styles.card.content.table.cell">Pirituba/Jaraguá</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">CEU EMEF Cesar Arruda Castanho, Dep.</td>
+									<td :class="styles.card.content.table.cell">Butantã</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Jose Pedro Leite Cordeiro, Dr.</td>
+									<td :class="styles.card.content.table.cell">São Miguel</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Joao Ribeiro de Barros</td>
+									<td :class="styles.card.content.table.cell">Guaianases</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Anna Lamberga Zeglio, Ver.</td>
+									<td :class="styles.card.content.table.cell">Guaianases</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Maria Rita de Cassia Pinheiro Simões Braga, Profa.</td>
+									<td :class="styles.card.content.table.cell">Campo Limpo</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Terezinha Mota de Figueiredo</td>
+									<td :class="styles.card.content.table.cell">Campo Limpo</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Edivaldo dos Santos Dantas, Prof.</td>
+									<td :class="styles.card.content.table.cell">Campo Limpo</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Maria Aparecida Magnanelli Fernandes, Profa.</td>
+									<td :class="styles.card.content.table.cell">Guaianases</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Águas de Março</td>
+									<td :class="styles.card.content.table.cell">Itaquera</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">CEU EMEF Jambeiro</td>
+									<td :class="styles.card.content.table.cell">Guaianases</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Virgilio de Mello Franco</td>
+									<td :class="styles.card.content.table.cell">São Miguel</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Jose Ermirio de Moraes, Sen.</td>
+									<td :class="styles.card.content.table.cell">São Miguel</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF City Jaraguá IV</td>
+									<td :class="styles.card.content.table.cell">Pirituba/Jaraguá</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Joao da Silva</td>
+									<td :class="styles.card.content.table.cell">Capela do Socorro</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Jose Blota Junior, Dep.</td>
+									<td :class="styles.card.content.table.cell">Campo Limpo</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Coelho Neto</td>
+									<td :class="styles.card.content.table.cell">São Mateus</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Alceu Amoroso Lima</td>
+									<td :class="styles.card.content.table.cell">São Mateus</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEFM Rubens Paiva</td>
+									<td :class="styles.card.content.table.cell">São Mateus</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Emiliano Di Cavalcanti</td>
+									<td :class="styles.card.content.table.cell">Penha</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Habib Carlos Kyrillos, Dr.</td>
+									<td :class="styles.card.content.table.cell">Santo Amaro</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Arthur Guimarães</td>
+									<td :class="styles.card.content.table.cell">Ipiranga</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">CEU EMEF Mario Fittipaldi</td>
+									<td :class="styles.card.content.table.cell">Campo Limpo</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Amélia Rodrigues de Oliveira, Profa.</td>
+									<td :class="styles.card.content.table.cell">Santo Amaro</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Plinio de Queiroz</td>
+									<td :class="styles.card.content.table.cell">São Mateus</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Artur Neiva</td>
+									<td :class="styles.card.content.table.cell">Itaquera</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Osvaldo Quirino Simões</td>
+									<td :class="styles.card.content.table.cell">Freguesia/Brasilândia</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Epitácio Pessoa, Pres.</td>
+									<td :class="styles.card.content.table.cell">São Miguel</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Gabriel Prestes, Prof.</td>
+									<td :class="styles.card.content.table.cell">Pirituba/Jaraguá</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Luis Saia, Arq.</td>
+									<td :class="styles.card.content.table.cell">São Miguel</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Ruth de Souza</td>
+									<td :class="styles.card.content.table.cell">Itaquera</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Vilanova Artigas, Arq.</td>
+									<td :class="styles.card.content.table.cell">São Mateus</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Aclamado <i>(vaga remanescente)</i></td>
+									<td :class="styles.card.content.table.cell">São Mateus</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Chácara Turística</td>
+									<td :class="styles.card.content.table.cell">Pirituba/Jaraguá</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Marcos Melega</td>
+									<td :class="styles.card.content.table.cell">Jaçanã/Tremembé</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Arthur Azevedo</td>
+									<td :class="styles.card.content.table.cell">Penha</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Educandário Dom Duarte, anexa ao</td>
+									<td :class="styles.card.content.table.cell">Butantã</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Plácido de Castro</td>
+									<td :class="styles.card.content.table.cell">Capela do Socorro</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Paulo Duarte <i>(vaga remanescente)</i></td>
+									<td :class="styles.card.content.table.cell">São Mateus</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Cândido Portinari <i>(vaga remanescente)</i></td>
+									<td :class="styles.card.content.table.cell">Pirituba/Jaraguá</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Afrânio de Mello Franco, Dr.</td>
+									<td :class="styles.card.content.table.cell">Capela do Socorro</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEFM Derville Allegretti, Prof.</td>
+									<td :class="styles.card.content.table.cell">Jaçanã/Tremembé</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Romão Gomes, Cel.</td>
+									<td :class="styles.card.content.table.cell">Jaçanã/Tremembé</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Raimundo Correia</td>
+									<td :class="styles.card.content.table.cell">São Miguel</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Cláudia Bartolomazi, Profa. <i>(vaga remanescente)</i></td>
+									<td :class="styles.card.content.table.cell">Guaianases</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Achilles de Oliveira Ribeiro, Des. <i>(vaga remanescente)</i></td>
+									<td :class="styles.card.content.table.cell">São Mateus</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Jose Amadei, Eng.</td>
+									<td :class="styles.card.content.table.cell">Capela do Socorro</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Cesar Yasigi, Prof.</td>
+									<td :class="styles.card.content.table.cell">Campo Limpo</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Chiquinha Rodrigues</td>
+									<td :class="styles.card.content.table.cell">Santo Amaro</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Humberto Dantas</td>
+									<td :class="styles.card.content.table.cell">Freguesia/Brasilândia</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Octavio Mangabeira</td>
+									<td :class="styles.card.content.table.cell">Penha</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEBS Anne Sullivan</td>
+									<td :class="styles.card.content.table.cell">Santo Amaro</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Marli Ferraz Torres Bonfim</td>
+									<td :class="styles.card.content.table.cell">Campo Limpo</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Luiz Cintra do Prado, Prof.</td>
+									<td :class="styles.card.content.table.cell">Butantã</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF João XXIII</td>
+									<td :class="styles.card.content.table.cell">Butantã</td>
+								</tr>
+								<tr :class="styles.card.content.table.row">
+									<td :class="[styles.card.content.table.cell, 'text-left']">EMEF Áurea Ribeiro Xavier Lopes, Profa.</td>
+									<td :class="styles.card.content.table.cell">Ipiranga</td>
+								</tr>
+							</table>
+
+							<p :class="styles.card.content.text">
+								Confira a relação completa — incluindo os critérios de pontuação e as escolas inscritas que não foram selecionadas — no <a href="SUBSTITUIR_PELO_LINK_DO_COMUNICADO" target="_blank" class="underline font-bold">Comunicado 161073677 (SEI 6067.2026/0003909-0)</a>.
+							</p>
+						</div>
+					</div>
 				</div>
 			</div>
 
